@@ -2,8 +2,8 @@
 services:
   postgres:
     # la imagen de este contenedor será 
-    # una base de datos postgres en la versión 13
-    image: postgres
+    # una base de datos postgres en la versión 18
+    image: postgres:18
       # Variables de entorno
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
