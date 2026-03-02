@@ -23,7 +23,7 @@ const CategorySchema = {
 			key: 'id'
 		},
 		onUpdate: 'CASCADE',
-		onDelete: 'DELETE',
+		onDelete: 'CASCADE',
 	},
 	createdAt: {
 		type: DataTypes.DATE,
@@ -35,6 +35,10 @@ const CategorySchema = {
 class Category extends Model {
 	static associate(models: Sequelize['models']) { 
 		this.belongsTo(models.User, { as: 'user'});
+		this.hasMany(models.Expense, {
+			as: 'expenses',
+			foreignKey: 'categoryId'
+		});
 	}
 
 	static config(sequelize: Sequelize) {

@@ -35,7 +35,11 @@ class User extends Model {
       this.hasMany(models.Category, {
         as: 'categories',
         foreignKey: 'userId',
-      })
+      });
+      this.hasMany(models.Expense, {
+        as: 'expenses',
+        foreignKey: 'userId',
+      });
     }
 
     static config(sequelize: Sequelize) {
