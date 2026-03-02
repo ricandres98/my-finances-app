@@ -1,8 +1,13 @@
 import { Sequelize } from "sequelize";
 import { User, UserSchema } from "./user.model";
+import { Category, CategorySchema } from "./category.model";
 
 function setupModels(sequelize: Sequelize) {
-    User.init(UserSchema, User.config(sequelize));
+	User.init(UserSchema, User.config(sequelize));
+	Category.init(CategorySchema, Category.config(sequelize));
+
+	User.associate(sequelize.models);
+	Category.associate(sequelize.models);
 }
 
 export { setupModels };
