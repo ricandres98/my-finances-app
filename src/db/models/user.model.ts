@@ -23,33 +23,34 @@ const UserSchema = {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    field: "created_at",
-  },
+	createdAt: {
+		type: DataTypes.DATE,
+		allowNull: false,
+		field: "created_at",
+		defaultValue: DataTypes.NOW,
+	},
 };
 
 class User extends Model {
-    static associate(models: Sequelize['models']) {
-      this.hasMany(models.Category, {
-        as: 'categories',
-        foreignKey: 'userId',
-      });
-      this.hasMany(models.Expense, {
-        as: 'expenses',
-        foreignKey: 'userId',
-      });
-    }
+  static associate(models: Sequelize['models']) {
+    this.hasMany(models.Category, {
+      as: 'categories',
+      foreignKey: 'userId',
+    });
+    this.hasMany(models.Expense, {
+      as: 'expenses',
+      foreignKey: 'userId',
+    });
+  }
 
-    static config(sequelize: Sequelize) {
-        return {
-            sequelize, 
-            tableName: USER_TABLE,
-            modelName: "User",
-            timestamps: false
-        }
+  static config(sequelize: Sequelize) {
+    return {
+      sequelize,
+      tableName: USER_TABLE,
+      modelName: "User",
+      timestamps: false
     }
+  }
 }
 
 export { User, UserSchema, USER_TABLE };
