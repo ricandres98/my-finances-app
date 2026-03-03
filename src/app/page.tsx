@@ -1,3 +1,9 @@
+import { CreateUserForm } from "@/components/CreateUserForm";
+
 export default async function Home() {
-  return <div className=""></div>;
+  return (
+    <>
+      <CreateUserForm />
+    </>
+  );
 }

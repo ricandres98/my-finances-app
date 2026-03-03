@@ -4,6 +4,7 @@ const config = {
     dbPassword: process.env.DB_PASSWORD,
     dbHost: process.env.DB_HOST,
     dbPort: process.env.DB_PORT,
+    hashingSaltRound: Number(process.env.HASHING_SALT_ROUND)
 }
 
 export { config };
