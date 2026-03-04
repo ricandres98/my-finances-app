@@ -1,5 +1,6 @@
 import { UserService } from '@/services/user.service';
 import { CreateUserDto } from '@/types/user.types';
+import { NextResponse } from 'next/server';
 
 const service = new UserService();
 
@@ -12,5 +13,5 @@ export async function POST(request: Request) {
 		return new Response(error.message, { status: 400 })
 	}
 
-	return new Response("Creado con éxito", { status: 201 });
+	NextResponse.json({ message: "Creado con éxito" }, { status: 201 });
 }

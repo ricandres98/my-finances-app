@@ -2,6 +2,7 @@ import { config } from "@/config";
 import { sequelize } from "@/libs/sequelize";
 import { CreateUserDto, User } from "@/types/user.types";
 import bcrypt from "bcrypt";
+import { Model } from "sequelize";
 
 class UserService {
 	async create(data: CreateUserDto): Promise<[null, true] | [Error, null]> {
@@ -25,7 +26,7 @@ class UserService {
 		}
 	}
 
-	async find(email: User["email"]) {
+	async find(email: User["email"]): Promise<Model<User> | null> {
 		return await sequelize.models.User.findOne({ where: { email: email } })
 	}
 
