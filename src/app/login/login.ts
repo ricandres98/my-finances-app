@@ -5,10 +5,12 @@ import bcrypt from "bcrypt";
 import { UserService } from "@/services/user.service";
 import { config } from "@/config";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const service = new UserService();
 
 export async function login(formData: FormData) {
+	let isLoginSuccess = false;
 	try {
 		// 1- Validar campos
 		const email = formData.get("email")?.toString();
@@ -48,13 +50,18 @@ export async function login(formData: FormData) {
 				path: "/"
 			})
 
-			return { message: "login exitoso" };
+			isLoginSuccess = true;
+		} else {
+			return { error: "Credenciales inválidas" };
 		}
-
-		return { error: "Credenciales inválidas" };
 
 	} catch {
 		return { error: "Error en el servidor" };
+	}
+
+	if (isLoginSuccess) {
+		// 5- Redireccionamiento
+		redirect("/dashboard")
 	}
 
 }
