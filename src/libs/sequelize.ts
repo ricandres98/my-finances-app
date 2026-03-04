@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize';
 import pg from 'pg';
-import { config } from '@/src/config';
+import { config } from '@/config';
+import { setupModels } from "@/db/models";
 
 const sequelize = new Sequelize({
   database: config.postgresDb,
@@ -11,5 +12,7 @@ const sequelize = new Sequelize({
   dialect: "postgres",
   dialectModule: pg,
 });
+
+setupModels(sequelize);
 
 export { sequelize };
