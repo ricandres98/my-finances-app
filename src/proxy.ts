@@ -42,6 +42,6 @@ export const config = {
      * 4. /favicon.ico (icono del sitio)
      * 5. /login (la página a la que queremos llegar)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|signup).*)',
   ],
 };

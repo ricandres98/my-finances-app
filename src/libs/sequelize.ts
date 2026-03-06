@@ -11,6 +11,7 @@ const sequelize = new Sequelize({
   port: Number(config.dbPort),
   dialect: "postgres",
   dialectModule: pg,
+  logging: console.log,
 });
 
 setupModels(sequelize);

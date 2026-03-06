@@ -1,5 +1,4 @@
 import "./globals.css";
-import { logout } from "./login/logout";
 
 export default function RootLayout({
   children,
@@ -9,7 +8,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={``}>
-      <button onClick={logout}>Logout</button>
         {children}
       </body>
     </html>

@@ -2,14 +2,15 @@
 import { useRef, useState } from "react";
 import { signup } from "@/app/signup/signup";
 
-function SignUpForm() {
+function SignupForm() {
 	const [error, setError] = useState<string | null>(null);
-	const [loading, isLoading] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const form = useRef<HTMLFormElement>(null);
 
 	const submitHandler: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
 		if (!form.current) return;
+		setLoading(true);		
 		
 		setError(null);
 		const formData = new FormData(form.current);
@@ -18,9 +19,9 @@ function SignUpForm() {
 		const	confirmPassword = formData.get("confirm-password");
 		
 			if (password === confirmPassword) {
-				console.log({error})
 
 				await signup(formData);
+				setLoading(false);
 				
 			} else {
 				setError("Las contraseñas no coinciden");
@@ -48,10 +49,10 @@ function SignUpForm() {
 				</label>
 
 				{error && <p>{error}</p>}
-				<button>Enviar</button>
+				<button>{loading ? "cargando..." : "Enviar"}</button>
 			</form>
 		</div>
 	)
 }
 
-export { SignUpForm };
+export { SignupForm };
