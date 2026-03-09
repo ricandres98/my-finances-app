@@ -24,7 +24,38 @@ class ExpenseService {
 		return await sequelize.models.Expense.findAll({ where: { userId, categoryId }});
 	}
 
-	delete() { }
+	async findOne(userId: Expense["userId"], id: Expense["id"]) {
+		try {
+			const expense = await sequelize.models.Expense.findOne({where: {userId, id}});
+
+			if (expense) {
+				return expense;
+			} else {
+				return null;
+			}
+
+		} catch (error) {
+			console.error("Error fetching expense:", error);
+			return null;
+		}
+	}
+
+	async deleteOne(userId: Expense["userId"], id: Expense["id"]) {
+		try {
+			const expense = await this.findOne(userId, id);
+			
+			if(expense) {
+				await expense.destroy();
+				return true;
+			} else {
+				throw new Error("Expense not found");
+			}
+			
+		} catch (error) {
+			console.error("Error deleting expense:", error);
+			return false;
+		}
+	 }
 
 	update() { }
 }

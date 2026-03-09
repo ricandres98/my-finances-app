@@ -1,7 +1,7 @@
 "use server";
 
 import { UserService } from "@/services/user.service";
-import { NextResponse } from "next/server";
+import { redirect } from "next/navigation";
 
 const service = new UserService();
 
@@ -25,7 +25,5 @@ export async function signup(formData: FormData) {
 		return { error: response[0].message };
 	}
 
-	// return { message: "Usuario creado con éxito" };
-	return NextResponse.redirect("/login");
-
+	redirect("/login");
 }

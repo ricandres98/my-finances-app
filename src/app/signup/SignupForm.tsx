@@ -20,11 +20,16 @@ function SignupForm() {
 		
 			if (password === confirmPassword) {
 
-				await signup(formData);
+				const response = await signup(formData);
+
+				if("error" in response) {
+					setError(response.error);
+				}
 				setLoading(false);
 				
 			} else {
 				setError("Las contraseñas no coinciden");
+				setLoading(false);
 			}
 	}
 

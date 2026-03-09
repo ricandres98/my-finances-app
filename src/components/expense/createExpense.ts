@@ -4,7 +4,6 @@ import { CategoryService } from "@/services/category.service";
 import { ExpenseService } from "@/services/expense.service";
 import { CreateExpenseDTO } from "@/types/expense.type";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
 
 const categoryService = new CategoryService();
 const authService = new AuthService();

@@ -1,7 +1,7 @@
 import { User } from "./user.types";
 
 interface Expense {
-  id: number,
+	id: number,
 	date: Date,
 	amountUsd: number,
 	userId: User["id"],
