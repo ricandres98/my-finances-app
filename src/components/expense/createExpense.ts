@@ -3,6 +3,7 @@ import { AuthService } from "@/services/auth.service";
 import { CategoryService } from "@/services/category.service";
 import { ExpenseService } from "@/services/expense.service";
 import { CreateExpenseDTO } from "@/types/expense.type";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 const categoryService = new CategoryService();
@@ -77,6 +78,8 @@ const createExpense = async (formData: FormData) => {
 	}
 
 	console.log("Expense created with ID:", expenseId);
+
+	revalidatePath("/dashboard");
 
 	return expenseId;
 }

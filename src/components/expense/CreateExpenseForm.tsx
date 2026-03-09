@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { CategoryCombobox } from "../CategoryCombobox";
 import { createExpense } from "./createExpense";
+import { InputNumber } from "../UI/InputNumber";
 
 const CreateExpenseForm = () => {
 	const [ currency, setCurrency ] = useState<"bs" | "usd">("bs");
@@ -48,17 +49,20 @@ const CreateExpenseForm = () => {
 					<>
 						<label htmlFor="amountBs">
 							<span>Monto:</span>
-							<input type="text" inputMode="decimal" id="amountBs" name="amountBs" required={true}/>
+							<InputNumber name="amountBs" id="amountBs" required={true} simbol="Bs"/>
+							{/* <input type="text" inputMode="decimal" id="amountBs" name="amountBs" required={true}/> */}
 						</label>
 						<label htmlFor="rate">
 							<span>Tasa:</span>
-							<input type="number" id="rate" name="rate" required/>
+							<InputNumber name="rate" id="rate" required={true} simbol="Bs/$"/>
+							{/* <input type="number" id="rate" name="rate" required/> */}
 						</label>
 					</>
 				) : (
 					<label htmlFor="amountUsd">
 						<span>Monto:</span>
-						<input type="number" id="amountUsd" name="amountUsd" required/>
+						<InputNumber name="amountUsd" id="amountUsd" required={true} simbol="$"/>
+						{/* <input type="number" id="amountUsd" name="amountUsd" required/> */}
 					</label>
 				)}
 				<label htmlFor="description">
