@@ -14,6 +14,7 @@ const authService = new AuthService();
 export default async function Dashboard() {
   const { id } = await authService.verifyToken() as { id: number, exp: number };
   const expenseList = await expenseService.findAll(id);
+  console.log("Expense list: ", expenseList);
   const categoryList = await categoryService.findAll(id);
   const categoryListStringified = JSON.stringify(categoryList);
 

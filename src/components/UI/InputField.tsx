@@ -7,7 +7,7 @@ const InputField = ({ htmlFor, text, children }: React.PropsWithChildren<Props>)
 	return (
 		<>
 			<label htmlFor={htmlFor}
-				className="mb-4 flex">
+				className="mb-6 flex">
 				<span className="mr-2">{text}</span>
 				{children}
 			</label>

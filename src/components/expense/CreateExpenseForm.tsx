@@ -7,6 +7,7 @@ import { InputNumber } from "../UI/InputNumber";
 import { GroupRadioInputs } from "../UI/GroupRadioInputs";
 import { InputField } from "../UI/InputField";
 import { Category } from "@/types/category";
+import { BaseButton } from "../UI/BaseButton";
 
 type Props = {
 	categoriesString: string;
@@ -24,26 +25,26 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 		try {
 			e.preventDefault();
 			setLoading(true);
+			setError(null)
 			if (form.current) {
 				const formData = new FormData(form.current!);
-				console.log(Object.fromEntries(formData.entries()));
 				
 				await createExpense(formData);
 				
 				setLoading(false);
-				console.log(form.current.reset())
+				setIsNewCategory(false);
 				form.current.reset();
-				console.log(form.current)
 			}
 			
 		} catch (error) {
 			setError((error as Error).message);
+			setLoading(false);
 			console.error("Error creating expense:", error);
 		}
 	}
 
 	return (
-		<div className="bg-white rounded-md shadow p-2">
+		<div className="bg-white rounded-xl shadow-sm p-4 border border-slate-200 w-full md:max-w-120">
 			<span>Seleccione moneda del gasto:</span>
 			<GroupRadioInputs name="currency" options={[
 				{ value: "bs", setter: () => setCurrency("bs"), defaultChecked: true, },
@@ -67,20 +68,26 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 				)}
 				<InputField htmlFor="description" text="Descripción: ">
 					<input type="text" id="description" name="description"
-						className="px-2 border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/> 
+						className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/> 
 				</InputField>
 				<InputField htmlFor="date" text="Fecha: ">
 					<input type="date" id="date" name="date" required 
-						className="px-2 border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/>
+						className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/>
 				</InputField>
-				<CategoryCombobox setIsNewCategory={setIsNewCategory} categories={JSON.parse(categoriesString)}/>
+				<InputField htmlFor="category" text="Categoría: ">
+					<CategoryCombobox setIsNewCategory={setIsNewCategory} categories={JSON.parse(categoriesString)}/>
+				</InputField>
 				{isNewCategory && (
-					<InputField htmlFor="new-category" text="Nombre de la nueva categoría">
-						<input type="text" id="new-category" name="new-category" 
-							className="px-2 border border-slate-200 rounded-md focus:outline focus:outline-slate-400" />
+					<InputField htmlFor="new-category" text="Nombre de la nueva categoría: ">
+						<input type="text" id="new-category" name="new-category" required={true}
+							className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400" />
 					</InputField>
 				)}
-				<button>{loading ? "Guardando..." : "Guardar"}</button>
+				{loading ? (
+					<span className="text-slate-600 mx-auto p-4">Guardando...</span>
+				) : (
+					<BaseButton>Guardar</BaseButton>
+				)}
 			</form>
 			{error && <p className="text-red-800">{error}</p>}
 		</div>

@@ -35,19 +35,16 @@ const CategoryCombobox = ({ setIsNewCategory, categories }: Props) => {
 	}
 
 	return (
-		<div className="mb-4">
-			<label htmlFor="category">Categoría:</label>
-			<select id="category" name="category" onChange={handleChange} defaultValue={""}>
+			<select id="category" name="category" onChange={handleChange} defaultValue={""} required={true}
+				className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400">
 				<option value="" disabled hidden>
 					Seleccione una categoría
 				</option>
 				<option value="nueva categoría" key={"nueva categoría"}>nueva categoría</option>
-				{/* {categoriesToShow.concat(defaultCategoriesToAdd).map((category) => ( */}
 				{defaultCategoriesToAdd.concat(categoriesToShow).map((category) => (
 					<option value={category} key={category}>{category}</option>
 				))}
-			</select>
-		</div>
+		</select>
 	)
 }
 

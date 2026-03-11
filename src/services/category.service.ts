@@ -34,7 +34,8 @@ class CategoryService {
 	}
 
 	async findAll(userId: Category["userId"]) {
-		return await sequelize.models.Category.findAll({ where: { userId }});
+		const categories = await sequelize.models.Category.findAll({ where: { userId }});
+		return categories.map((category) => category.dataValues as Category);
 	}
 
 }
