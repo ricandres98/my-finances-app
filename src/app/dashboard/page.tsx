@@ -28,7 +28,7 @@ export default async function Dashboard() {
   return (
     // md:grid-rows-[minmax(5rem,min-content)_1fr]
     <div className="h-dvh grid md:grid-cols-[14rem_1fr] overflow-hidden">
-      <Sidebar />
+      <Sidebar routeAt="/dashboard"/>
       <Header />
       <main className="w-full md:flex md:gap-6 px-4 pt-8 overflow-y-auto">
         <div className="min-w-sm ">
