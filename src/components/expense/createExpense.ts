@@ -23,6 +23,7 @@ const createExpense = async (formData: FormData) => {
 	const description = formData.get("description") as string;
 	const date = formData.get("date") as string;
 	const category = formData.get("category") as string;
+	const newCategory = formData.get("new-category") as string;
 
 
 	// BORRAR
@@ -35,20 +36,24 @@ const createExpense = async (formData: FormData) => {
 		category,
 	});
 
-
 	// Revisar si la categoría ya existe
 	const itExists = await categoryService.checkExistence(category, id);
 	console.log("CREATE EXPENSE, se verificó si existe la categoría, la respuesta fue ", itExists);
-
-
-	// Si no existe, crearla y almacenar su id en una variable
 	let categoryId = itExists;
+	
+	// Si no existe, crearla y almacenar su id en una variable
 	if (!itExists) {
-		const [error, newId] = await categoryService.create({ name: category, userId: id });
+		const [error, newId] = await categoryService.create({
+			name: (newCategory && newCategory !== "") ? newCategory.toLowerCase() : category.toLowerCase(), 
+			userId: id,
+		});
 		if (newId && !error) {
 			categoryId = newId;
+		} else {
+			throw new Error(error?.message);
 		}
 	}
+
 
 	// Verificar si el gasto fue en Bs, si es el caso calcular su equivalente en USD usando la tasa de cambio proporcionada
 	let actualAmountUsd: number = Number(amountUsd);

@@ -1,7 +1,7 @@
 import { User } from "./user.types";
 
 interface Category {
-  id: number,
+	id: number,
 	name: string,
 	userId: User["id"],
 }

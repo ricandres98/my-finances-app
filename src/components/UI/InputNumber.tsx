@@ -19,9 +19,11 @@ const InputNumber = ({ name, id, required, simbol }: Props) => {
 	}
 
 	return (
-		<div>
-			<span>{simbol}</span>
-			<input type="text" value={value} onChange={handleChange} name={name} id={id} required={required} />
+		<div className="flex  px-2 border border-slate-200 rounded-md focus-within:outline focus-within:outline-slate-400">
+			<span className="text-slate-700">{simbol}</span>
+			<input type="text" value={value} onChange={handleChange} onSubmit={() => setValue("")} name={name} id={id} required={required} 
+				className="focus-visible:outline-none px-2 w-full"
+			/>
 		</div>
 	)
 }

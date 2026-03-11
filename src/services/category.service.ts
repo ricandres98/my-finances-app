@@ -33,6 +33,10 @@ class CategoryService {
 		return category ? category.dataValues.id as number : false;
 	}
 
+	async findAll(userId: Category["userId"]) {
+		return await sequelize.models.Category.findAll({ where: { userId }});
+	}
+
 }
 
 export { CategoryService };

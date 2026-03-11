@@ -4,24 +4,38 @@ import { useRef, useState } from "react";
 import { CategoryCombobox } from "../CategoryCombobox";
 import { createExpense } from "./createExpense";
 import { InputNumber } from "../UI/InputNumber";
+import { GroupRadioInputs } from "../UI/GroupRadioInputs";
+import { InputField } from "../UI/InputField";
+import { Category } from "@/types/category";
 
-const CreateExpenseForm = () => {
+type Props = {
+	categoriesString: string;
+}
+
+const CreateExpenseForm = ({ categoriesString }: Props) => {
 	const [ currency, setCurrency ] = useState<"bs" | "usd">("bs");
 	const [ error, setError ] = useState<string | null>(null);
-	const [loading, setLoading] = useState(false);
+	const [ loading, setLoading ] = useState(false);
+
+	const [ isNewCategory, setIsNewCategory ] = useState(false);
 	const form = useRef<HTMLFormElement>(null);
 	
 	const handleSubmit: React.SubmitEventHandler = async (e) => {
 		try {
 			e.preventDefault();
 			setLoading(true);
-			const formData = new FormData(form.current!);
-			console.log(Object.fromEntries(formData.entries()));
+			if (form.current) {
+				const formData = new FormData(form.current!);
+				console.log(Object.fromEntries(formData.entries()));
+				
+				await createExpense(formData);
+				
+				setLoading(false);
+				console.log(form.current.reset())
+				form.current.reset();
+				console.log(form.current)
+			}
 			
-			await createExpense(formData);
-			
-			setLoading(false);
-			form.current?.reset();
 		} catch (error) {
 			setError((error as Error).message);
 			console.error("Error creating expense:", error);
@@ -29,51 +43,43 @@ const CreateExpenseForm = () => {
 	}
 
 	return (
-		<div>
+		<div className="bg-white rounded-md shadow p-2">
 			<span>Seleccione moneda del gasto:</span>
-			<div>
-				<label htmlFor="bs">
-					<input type="radio" name="currency" id="bs" defaultChecked
-						onChange={() => setCurrency("bs")}/>
-					<span>Bs</span>
-				</label>
-				<label htmlFor="usd">
-					<input type="radio" name="currency" id="usd" 
-					onChange={() => setCurrency("usd")}/>
-					<span>USD</span>
-				</label>
-			</div>
+			<GroupRadioInputs name="currency" options={[
+				{ value: "bs", setter: () => setCurrency("bs"), defaultChecked: true, },
+				{ value: "usd", setter: () => setCurrency("usd") }
+			]} />
 
 			<form className="flex flex-col" ref={form} onSubmit={handleSubmit}>
 				{currency === "bs" ? (
 					<>
-						<label htmlFor="amountBs">
-							<span>Monto:</span>
+						<InputField htmlFor="amountBs" text="Monto: ">
 							<InputNumber name="amountBs" id="amountBs" required={true} simbol="Bs"/>
-							{/* <input type="text" inputMode="decimal" id="amountBs" name="amountBs" required={true}/> */}
-						</label>
-						<label htmlFor="rate">
-							<span>Tasa:</span>
+						</InputField>
+						<InputField htmlFor="rate" text="Tasa: ">
 							<InputNumber name="rate" id="rate" required={true} simbol="Bs/$"/>
-							{/* <input type="number" id="rate" name="rate" required/> */}
-						</label>
+						</InputField>
 					</>
 				) : (
-					<label htmlFor="amountUsd">
-						<span>Monto:</span>
+					<InputField htmlFor="amountUsd" text="Monto">
 						<InputNumber name="amountUsd" id="amountUsd" required={true} simbol="$"/>
-						{/* <input type="number" id="amountUsd" name="amountUsd" required/> */}
-					</label>
+					</InputField>
 				)}
-				<label htmlFor="description">
-					<span>Descripción:</span>
-					<input type="text" id="description" name="description"/> 
-				</label>
-				<label htmlFor="date">
-					<span>Fecha:</span>
-					<input type="date" id="date" name="date" required />
-				</label>
-				<CategoryCombobox />
+				<InputField htmlFor="description" text="Descripción: ">
+					<input type="text" id="description" name="description"
+						className="px-2 border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/> 
+				</InputField>
+				<InputField htmlFor="date" text="Fecha: ">
+					<input type="date" id="date" name="date" required 
+						className="px-2 border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/>
+				</InputField>
+				<CategoryCombobox setIsNewCategory={setIsNewCategory} categories={JSON.parse(categoriesString)}/>
+				{isNewCategory && (
+					<InputField htmlFor="new-category" text="Nombre de la nueva categoría">
+						<input type="text" id="new-category" name="new-category" 
+							className="px-2 border border-slate-200 rounded-md focus:outline focus:outline-slate-400" />
+					</InputField>
+				)}
 				<button>{loading ? "Guardando..." : "Guardar"}</button>
 			</form>
 			{error && <p className="text-red-800">{error}</p>}
