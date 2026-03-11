@@ -4,9 +4,10 @@ import { AuthService } from "@/services/auth.service";
 import { ExpenseItem } from "@/components/expense/ExpenseItem";
 import { ExpenseList } from "@/components/expense/ExpenseList";
 
-import { logout } from "../login/logout";
 import { CategoryService } from "@/services/category.service";
 import { EXPENSE_TABLE } from "@/db/models/expense.model";
+import { Header } from "@/components/UI/Header";
+import { Sidebar } from "@/components/UI/Sidebar";
 
 const expenseService = new ExpenseService();
 const categoryService = new CategoryService();
@@ -25,26 +26,15 @@ export default async function Dashboard() {
   const categoryListStringified = JSON.stringify(categoryList);
 
   return (
-    <div className="grid md:grid-cols-[14rem_1fr] md:grid-rows-[5rem_1fr] h-screen">
-      <aside className="h-dv border-e-2 md:row-start-1 md:row-end-3">
-        <div>
-          <h3>Sidebar</h3>
-        </div>
-      </aside>
-      <header>
-        <div>
-          <h1>Finance APP</h1>
-          <h2>Registra tus gastos y controla tu presupuesto</h2>
-        </div>
-        <div>
-          <button onClick={logout}>Logout</button>
-        </div>
-      </header>
-      <main className="inline-block w-full px-4">
-        <div>
+    // md:grid-rows-[minmax(5rem,min-content)_1fr]
+    <div className="h-dvh grid md:grid-cols-[14rem_1fr] overflow-hidden">
+      <Sidebar />
+      <Header />
+      <main className="w-full md:flex md:gap-6 px-4 pt-8 overflow-y-auto">
+        <div className="min-w-sm ">
           <CreateExpenseForm categoriesString={categoryListStringified} />
         </div>
-        <div>
+        <div className="w-full">
           <ExpenseList>
             {(expenseList && expenseList.length > 0)
               // Organiza desde el más reciente al más antiguo

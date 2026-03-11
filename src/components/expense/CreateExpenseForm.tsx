@@ -43,14 +43,16 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 	}
 
 	return (
-		<div className="bg-white rounded-xl shadow-sm p-4 border border-slate-200 w-full md:max-w-120">
-			<span>Seleccione moneda del gasto:</span>
-			<GroupRadioInputs name="currency" options={[
-				{ value: "bs", setter: () => setCurrency("bs"), defaultChecked: true, },
-				{ value: "usd", setter: () => setCurrency("usd") }
-			]} />
+		<div className="p-4 space-y-4 bg-white rounded-xl shadow-sm border border-slate-200 w-full md:max-w-120">
+			<div>
+				<span className="mr-4">Seleccione moneda del gasto:</span>
+				<GroupRadioInputs name="currency" options={[
+					{ value: "bs", setter: () => setCurrency("bs"), defaultChecked: true, },
+					{ value: "$", setter: () => setCurrency("usd") }
+				]} />
+			</div>
 
-			<form className="flex flex-col" ref={form} onSubmit={handleSubmit}>
+			<form className="flex flex-col space-y-4" ref={form} onSubmit={handleSubmit}>
 				{currency === "bs" ? (
 					<>
 						<InputField htmlFor="amountBs" text="Monto: ">
@@ -67,11 +69,11 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 				)}
 				<InputField htmlFor="description" text="Descripción: ">
 					<input type="text" id="description" name="description"
-						className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/> 
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"/> 
 				</InputField>
 				<InputField htmlFor="date" text="Fecha: ">
 					<input type="date" id="date" name="date" required 
-						className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400"/>
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"/>
 				</InputField>
 				<InputField htmlFor="category" text="Categoría: ">
 					<CategoryCombobox setIsNewCategory={setIsNewCategory} categories={JSON.parse(categoriesString)}/>
@@ -79,7 +81,7 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 				{isNewCategory && (
 					<InputField htmlFor="new-category" text="Nombre de la nueva categoría: ">
 						<input type="text" id="new-category" name="new-category" required={true}
-							className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400" />
+							className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none" />
 					</InputField>
 				)}
 				{loading ? (

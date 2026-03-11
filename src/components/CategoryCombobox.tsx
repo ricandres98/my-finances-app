@@ -39,7 +39,7 @@ const CategoryCombobox = ({ setIsNewCategory, categories }: Props) => {
 
 	return (
 			<select id="category" name="category" onChange={handleChange} defaultValue={""} required={true}
-				className="px-2 w-full border border-slate-200 rounded-md focus:outline focus:outline-slate-400">
+				className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none">
 				<option value="" disabled hidden>
 					Seleccione una categoría
 				</option>

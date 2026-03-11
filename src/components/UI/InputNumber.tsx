@@ -19,7 +19,9 @@ const InputNumber = ({ name, id, required, simbol }: Props) => {
 	}
 
 	return (
-		<div className="flex w-full px-2 border border-slate-200 rounded-md focus-within:outline focus-within:outline-slate-400">
+		<div 
+			className="flex w-full px-3 py-2 border border-slate-300 rounded-lg 
+			focus-within:ring-2 focus-within:ring-blue-500">
 			<span className="text-slate-700">{simbol}</span>
 			<input type="text" value={value} onChange={handleChange} onSubmit={() => setValue("")} name={name} id={id} required={required} 
 				className="focus-visible:outline-none px-2 w-full"

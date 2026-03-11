@@ -11,15 +11,17 @@ type Props = {
 
 const GroupRadioInputs = ({ name, options }: Props) => {
     return (
-      <div className="flex w-min bg-slate-300 rounded-md overflow-hidden mt-2 mb-6">
+      <div className="flex w-min bg-slate-100 rounded-lg p-1 inline-flex overflow-hidden">
 				{options.map((option) => (
 					<div key={option.value}>
 						<input className="peer sr-only"
 							type="radio" name={name} id={option.value} defaultChecked={option.defaultChecked}
 							onChange={() => option.setter()}/>
-						<label className="inline-block h-full px-2 peer-checked:bg-slate-400 cursor-pointer transition-all"
+						<label 
+							className="inline-block h-full px-2 rounded-md cursor-pointer transition-all text-slate-500
+							peer-checked:bg-white peer-checked:text-slate-900 peer-checked:font-medium peer-checked:shadow-sm "
 							htmlFor={option.value} >
-							<span>{option.value.toUpperCase()}</span>
+							<span>{option.value[0].toUpperCase()+option.value.slice(1)}</span>
 						</label>
 					</div>
 				))}
