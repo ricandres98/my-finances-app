@@ -1,5 +1,5 @@
 import { sequelize } from "@/libs/sequelize";
-import type { CreateExpenseDTO, Expense } from "@/types/expense.type";
+import type { CreateExpenseDTO, Expense, ExpenseWithCategory } from "@/types/expense.type";
 import { Model } from "sequelize";
 
 class ExpenseService {
@@ -17,9 +17,24 @@ class ExpenseService {
 	}
 
 	async findAll(userId: Expense["userId"]): Promise<Model<Expense>[] | null> {
-		return await sequelize.models.Expense.findAll({ where: { userId }});
+		return await sequelize.models.Expense.findAll({ 
+			where: { userId }, 
+			include: ["category"], 
+			order: [["date", "DESC"], ["createdAt", "DESC"]],
+			raw: false,
+		});
 	}
 
+	async findAllRaw(userId: Expense["userId"]): Promise<ExpenseWithCategory[] | null> {
+		return await sequelize.models.Expense.findAll({ 
+			where: { userId }, 
+			include: ["category"], 
+			order: [["date", "DESC"], ["createdAt", "DESC"]],
+			raw: true,
+			nest: true,
+		}) as unknown as ExpenseWithCategory[] | null;
+	}
+	
 	async findByCategory(userId: Expense["userId"], categoryId: Expense["categoryId"]): Promise<Model<Expense>[] | null>{
 		return await sequelize.models.Expense.findAll({ where: { userId, categoryId }});
 	}

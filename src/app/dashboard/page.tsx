@@ -6,6 +6,7 @@ import { ExpenseList } from "@/components/expense/ExpenseList";
 
 import { logout } from "../login/logout";
 import { CategoryService } from "@/services/category.service";
+import { EXPENSE_TABLE } from "@/db/models/expense.model";
 
 const expenseService = new ExpenseService();
 const categoryService = new CategoryService();
@@ -13,8 +14,13 @@ const authService = new AuthService();
 
 export default async function Dashboard() {
   const { id } = await authService.verifyToken() as { id: number, exp: number };
-  const expenseList = await expenseService.findAll(id);
+  const expenseList = await expenseService.findAllRaw(id);
+  // const parseExpenseList =
+  //   expenseList
+  //     ? expenseList.map((expense) => ({ ...expense.dataValues, category: expense.dataValues.category?.dataValues}))
+  //     : null;
   console.log("Expense list: ", expenseList);
+  // console.log("Parsed Expense list: ", parsedExpenseList);
   const categoryList = await categoryService.findAll(id);
   const categoryListStringified = JSON.stringify(categoryList);
 
@@ -42,9 +48,9 @@ export default async function Dashboard() {
           <ExpenseList>
             {(expenseList && expenseList.length > 0)
               // Organiza desde el más reciente al más antiguo
-              ? expenseList.sort((expenseA, expenseB) => expenseB.dataValues.date.getTime() - expenseA.dataValues.date.getTime())
+              ? expenseList.sort((expenseA, expenseB) => expenseB.date.getTime() - expenseA.date.getTime())
               .map((expense) => (
-                <ExpenseItem expense={expense.dataValues} key={`exp-${expense.dataValues.id}`} />
+                <ExpenseItem expense={expense} key={`exp-${expense.id}`} />
               ))
               : "Comienza a registrar tus gastos"
             }

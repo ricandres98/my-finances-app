@@ -6,8 +6,7 @@ import { createExpense } from "./createExpense";
 import { InputNumber } from "../UI/InputNumber";
 import { GroupRadioInputs } from "../UI/GroupRadioInputs";
 import { InputField } from "../UI/InputField";
-import { Category } from "@/types/category";
-import { BaseButton } from "../UI/BaseButton";
+import { MainButton } from "../UI/MainButton";
 
 type Props = {
 	categoriesString: string;
@@ -86,7 +85,7 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 				{loading ? (
 					<span className="text-slate-600 mx-auto p-4">Guardando...</span>
 				) : (
-					<BaseButton>Guardar</BaseButton>
+					<MainButton>Guardar</MainButton>
 				)}
 			</form>
 			{error && <p className="text-red-800">{error}</p>}

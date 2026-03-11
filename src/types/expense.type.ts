@@ -1,3 +1,5 @@
+import { Model } from "sequelize";
+import { Category } from "./category";
 import { User } from "./user.types";
 
 interface Expense {
@@ -11,6 +13,10 @@ interface Expense {
 	amountBs?: number,
 }
 
+interface ExpenseWithCategory extends Expense {
+	category: Category,
+}
+
 type CreateExpenseDTO = Omit<Expense, "id">;
 
-export type { Expense, CreateExpenseDTO };
+export type { Expense, CreateExpenseDTO, ExpenseWithCategory };

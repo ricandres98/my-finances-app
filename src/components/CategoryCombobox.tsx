@@ -5,7 +5,10 @@ const defaultCategories = [
 	"servicios",
 	"alimentación",
 	"ahorro",
-	"reparaciones",
+	"transporte",
+	"suscripciones",
+	"shopping",
+	"salud",
 ];
 
 type Props = {
