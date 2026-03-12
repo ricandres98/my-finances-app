@@ -7,12 +7,13 @@ import { InputNumber } from "../UI/InputNumber";
 import { GroupRadioInputs } from "../UI/GroupRadioInputs";
 import { InputField } from "../UI/InputField";
 import { MainButton } from "../UI/MainButton";
+import { Category } from "@/types/category";
 
 type Props = {
-	categoriesString: string;
+	categories: Category[],
 }
 
-const CreateExpenseForm = ({ categoriesString }: Props) => {
+const CreateExpenseForm = ({ categories }: Props) => {
 	const [ currency, setCurrency ] = useState<"bs" | "usd">("bs");
 	const [ error, setError ] = useState<string | null>(null);
 	const [ loading, setLoading ] = useState(false);
@@ -76,7 +77,7 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"/>
 				</InputField>
 				<InputField htmlFor="category" text="Categoría: ">
-					<CategorySelect setIsNewCategory={setIsNewCategory} categories={JSON.parse(categoriesString)}/>
+					<CategorySelect setIsNewCategory={setIsNewCategory} categories={categories}/>
 				</InputField>
 				{isNewCategory && (
 					<InputField htmlFor="new-category" text="Nombre de la nueva categoría: ">

@@ -16,19 +16,13 @@ const authService = new AuthService();
 export default async function Dashboard() {
   const { id } = await authService.verifyToken() as { id: number, exp: number };
   const expenseList = await expenseService.findAllRaw(id);
-  // const parseExpenseList =
-  //   expenseList
-  //     ? expenseList.map((expense) => ({ ...expense.dataValues, category: expense.dataValues.category?.dataValues}))
-  //     : null;
-  console.log("Expense list: ", expenseList);
-  // console.log("Parsed Expense list: ", parsedExpenseList);
+  
   const categoryList = await categoryService.findAll(id);
-  const categoryListStringified = JSON.stringify(categoryList);
 
   return (
-    <main className="w-full md:flex md:gap-6 px-4 pt-8 overflow-y-auto">
+    <main className="w-full md:flex md:gap-6 px-4 py-8 overflow-y-auto focus-visible:outline-none">
       <div className="min-w-sm ">
-        <CreateExpenseForm categoriesString={categoryListStringified} />
+        <CreateExpenseForm categories={categoryList} />
       </div>
       <div className="w-full">
         <ExpenseList>

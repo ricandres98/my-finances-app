@@ -11,7 +11,8 @@ type Props = {
 
 const GroupRadioInputs = ({ name, options }: Props) => {
     return (
-      <div className="flex w-min bg-slate-100 rounded-lg p-1 inline-flex overflow-hidden">
+      <div className="group inline-flex w-min bg-slate-100 rounded-lg p-1
+				overflow-hidden has-focus-visible:ring-2 has-focus-visible:ring-blue-500">
 				{options.map((option) => (
 					<div key={option.value}>
 						<input className="peer sr-only"
