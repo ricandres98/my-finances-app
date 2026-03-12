@@ -1,7 +1,7 @@
 "use client";
 import { ExpenseWithCategory } from "@/types/expense.type"
 import { dateToStringUTC } from "@/utils/dateToString";
-import { deleteExpense } from "./deleteExpense";
+import { deleteExpense } from "../../actions/expenses/deleteExpense";
 
 type Props = {
 	expense: ExpenseWithCategory,

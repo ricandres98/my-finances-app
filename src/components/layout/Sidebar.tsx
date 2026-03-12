@@ -1,4 +1,4 @@
-import { logout } from "@/app/login/logout";
+import { logout } from "@/actions/auth/logout";
 import Link from "next/link";
 
 const navRoutes = [
@@ -32,7 +32,7 @@ const Sidebar = ({ routeAt }: Props) => {
           {navRoutes.map((route) => (
             <li key={route.route}
               className={`p-2 ${route.route === routeAt ? "bg-blue-100 text-blue-600 font-semibold" : "hover:bg-slate-100"}`}>
-              <Link href={route.route}>{route.description}</Link>
+              <Link className="w-full inline-block" href={route.route}>{route.description}</Link>
             </li>
           ))}
         </ul>

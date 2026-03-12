@@ -17,7 +17,7 @@ type Props = {
 }
 
 // Pendiente construir un Combobox con estas categorías, para que el usuario pueda elegir una o escribir una nueva
-const CategoryCombobox = ({ setIsNewCategory, categories }: Props) => {
+const CategorySelect = ({ setIsNewCategory, categories }: Props) => {
 
 	const categoriesToShow = categories.map((category) => category.name);
 
@@ -51,4 +51,4 @@ const CategoryCombobox = ({ setIsNewCategory, categories }: Props) => {
 	)
 }
 
-export { CategoryCombobox };
+export { CategorySelect };

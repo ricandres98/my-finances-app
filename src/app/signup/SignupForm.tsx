@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { signup } from "@/app/signup/signup";
+import { signup } from "@/actions/auth/signup";
 
 function SignupForm() {
 	const [error, setError] = useState<string | null>(null);

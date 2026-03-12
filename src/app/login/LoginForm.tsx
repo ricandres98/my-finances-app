@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { login } from "./login";
+import { login } from "../../actions/auth/login";
 
 function LoginForm() {
 	const [error, setError] = useState<string | null>(null);
@@ -19,10 +19,8 @@ function LoginForm() {
 		
 		setLoading(false);
 
-		if (response.error) {
+		if (response && "error" in response && response.error) {
 			setError(response.error);
-		} else {
-			console.log(response.message);
 		}
 }
 

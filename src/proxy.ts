@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose"
 import { config as env } from "@/config";
-import { logout } from "./app/login/logout";
+import { logout } from "./actions/auth/logout";
 
 export default async function proxy(request: NextRequest) {
 	const token = request.cookies.get("token");

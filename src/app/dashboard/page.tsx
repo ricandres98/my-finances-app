@@ -6,8 +6,8 @@ import { ExpenseList } from "@/components/expense/ExpenseList";
 
 import { CategoryService } from "@/services/category.service";
 import { EXPENSE_TABLE } from "@/db/models/expense.model";
-import { Header } from "@/components/UI/Header";
-import { Sidebar } from "@/components/UI/Sidebar";
+import { Header } from "@/components/layout/Header";
+import { Sidebar } from "@/components/layout/Sidebar";
 
 const expenseService = new ExpenseService();
 const categoryService = new CategoryService();
@@ -26,27 +26,22 @@ export default async function Dashboard() {
   const categoryListStringified = JSON.stringify(categoryList);
 
   return (
-    // md:grid-rows-[minmax(5rem,min-content)_1fr]
-    <div className="h-dvh grid md:grid-cols-[14rem_1fr] overflow-hidden">
-      <Sidebar routeAt="/dashboard"/>
-      <Header />
-      <main className="w-full md:flex md:gap-6 px-4 pt-8 overflow-y-auto">
-        <div className="min-w-sm ">
-          <CreateExpenseForm categoriesString={categoryListStringified} />
-        </div>
-        <div className="w-full">
-          <ExpenseList>
-            {(expenseList && expenseList.length > 0)
-              // Organiza desde el más reciente al más antiguo
-              ? expenseList.sort((expenseA, expenseB) => expenseB.date.getTime() - expenseA.date.getTime())
+    <main className="w-full md:flex md:gap-6 px-4 pt-8 overflow-y-auto">
+      <div className="min-w-sm ">
+        <CreateExpenseForm categoriesString={categoryListStringified} />
+      </div>
+      <div className="w-full">
+        <ExpenseList>
+          {(expenseList && expenseList.length > 0)
+            // Organiza desde el más reciente al más antiguo
+            ? expenseList.sort((expenseA, expenseB) => expenseB.date.getTime() - expenseA.date.getTime())
               .map((expense) => (
                 <ExpenseItem expense={expense} key={`exp-${expense.id}`} />
               ))
-              : "Comienza a registrar tus gastos"
-            }
-          </ExpenseList>
-        </div>
-      </main>
-    </div>
+            : (<p className="mx-auto text-2xl font-semibold text-slate-600 text-center mt-8">¡Comienza a registrar tus gastos!</p>)
+          }
+        </ExpenseList>
+      </div>
+    </main>
   );
 }

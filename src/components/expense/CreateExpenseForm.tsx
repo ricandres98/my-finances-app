@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { CategoryCombobox } from "../CategoryCombobox";
-import { createExpense } from "./createExpense";
+import { CategorySelect } from "../CategorySelect";
+import { createExpense } from "../../actions/expenses/createExpense";
 import { InputNumber } from "../UI/InputNumber";
 import { GroupRadioInputs } from "../UI/GroupRadioInputs";
 import { InputField } from "../UI/InputField";
@@ -76,7 +76,7 @@ const CreateExpenseForm = ({ categoriesString }: Props) => {
 						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"/>
 				</InputField>
 				<InputField htmlFor="category" text="Categoría: ">
-					<CategoryCombobox setIsNewCategory={setIsNewCategory} categories={JSON.parse(categoriesString)}/>
+					<CategorySelect setIsNewCategory={setIsNewCategory} categories={JSON.parse(categoriesString)}/>
 				</InputField>
 				{isNewCategory && (
 					<InputField htmlFor="new-category" text="Nombre de la nueva categoría: ">

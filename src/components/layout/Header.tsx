@@ -1,4 +1,4 @@
-import { logout } from "@/app/login/logout";
+import { logout } from "@/actions/auth/logout";
 
 const Header = () => {
   return (
