@@ -19,4 +19,6 @@ interface ExpenseWithCategory extends Expense {
 
 type CreateExpenseDTO = Omit<Expense, "id">;
 
-export type { Expense, CreateExpenseDTO, ExpenseWithCategory };
+type EditExpenseDTO = Partial<Omit<CreateExpenseDTO, "userId">>
+
+export type { Expense, CreateExpenseDTO, ExpenseWithCategory, EditExpenseDTO };

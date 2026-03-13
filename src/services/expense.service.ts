@@ -1,5 +1,5 @@
 import { sequelize } from "@/libs/sequelize";
-import type { CreateExpenseDTO, Expense, ExpenseWithCategory } from "@/types/expense.type";
+import type { CreateExpenseDTO, EditExpenseDTO, Expense, ExpenseWithCategory } from "@/types/expense.type";
 import { Model } from "sequelize";
 
 class ExpenseService {
@@ -72,7 +72,18 @@ class ExpenseService {
 		}
 	 }
 
-	update() { }
+	async update(userId:Expense["userId"], id:Expense["id"], changes: EditExpenseDTO): Promise<Expense | undefined> {
+		try {
+			const expense = await this.findOne(userId, id);
+			if(!expense) {
+				throw new Error("Expense not found");
+			} else {
+				return (await expense.update(changes)).dataValues;
+			}
+		} catch (error) {
+			console.error((error as Error).message)
+		}
+	}
 }
 
 export { ExpenseService };

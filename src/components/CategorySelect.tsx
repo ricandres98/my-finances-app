@@ -13,11 +13,12 @@ const defaultCategories = [
 
 type Props = {
 	setIsNewCategory: (a: boolean) => void,
-	categories: Category[]
+	categories: Category[],
+	defaultValue?: string,
 }
 
 // Pendiente construir un Combobox con estas categorías, para que el usuario pueda elegir una o escribir una nueva
-const CategorySelect = ({ setIsNewCategory, categories }: Props) => {
+const CategorySelect = ({ setIsNewCategory, categories, defaultValue }: Props) => {
 
 	const categoriesToShow = categories.map((category) => category.name);
 
@@ -38,7 +39,7 @@ const CategorySelect = ({ setIsNewCategory, categories }: Props) => {
 	}
 
 	return (
-			<select id="category" name="category" onChange={handleChange} defaultValue={""} required={true}
+			<select id="category" name="category" onChange={handleChange} defaultValue={defaultValue ? defaultValue : ""} required={true}
 				className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none">
 				<option value="" disabled hidden>
 					Seleccione una categoría

@@ -5,10 +5,11 @@ import { deleteExpense } from "../../actions/expenses/deleteExpense";
 
 type Props = {
 	expense: ExpenseWithCategory,
+	setEdit: (expense: ExpenseWithCategory) => void;
 };
 
 
-const ExpenseItem = ({expense}: Props) => {
+const ExpenseItem = ({ expense, setEdit }: Props) => {
 	
 	const handleDelete = async () => {
 		await deleteExpense(expense.id);
@@ -30,7 +31,8 @@ const ExpenseItem = ({expense}: Props) => {
 					<span className="text-xl font-semibold text-slate-900">$ {expense.amountUsd}</span>
 					{expense.amountBs && <span className="text-sm text-slate-500">≈ Bs {expense.amountBs}</span>}
 				</div>
-				<div className="">
+				<div className="flex gap-4">
+					<button className="hover:text-blue-500 cursor-pointer" onClick={() => setEdit(expense)}>Editar</button>
 					<button className="hover:text-red-500 cursor-pointer" onClick={handleDelete}>Eliminar</button>
 				</div>
 			</div>
