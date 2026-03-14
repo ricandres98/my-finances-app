@@ -38,7 +38,9 @@ class Category extends Model {
 		this.belongsTo(models.User, { as: 'user'});
 		this.hasMany(models.Expense, {
 			as: 'expenses',
-			foreignKey: 'categoryId'
+			foreignKey: 'categoryId',
+			onDelete: "CASCADE",
+			onUpdate: "CASCADE"
 		});
 	}
 
