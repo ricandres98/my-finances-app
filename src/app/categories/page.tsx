@@ -9,6 +9,6 @@ export default async function CategoriesPage() {
   console.log(categoryList)
 
   return (
-    <CategoriesClient categoryList={categoryList}/>
+    <CategoriesClient categoryList={categoryList} path="/categories"/>
   )
 }
