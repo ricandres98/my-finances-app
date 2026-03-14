@@ -1,9 +1,7 @@
 "use server";
 
-import { UserService } from "@/services/user.service";
+import { userService } from "@/services/user.service";
 import { redirect } from "next/navigation";
-
-const service = new UserService();
 
 export async function signup(formData: FormData) {
 
@@ -15,7 +13,7 @@ export async function signup(formData: FormData) {
 		return { error: "Faltan campos" };
 	}
 
-	const response = await service.create({
+	const response = await userService.create({
 		username: username.toString(),
 		email: email.toString(),
 		password: password.toString()

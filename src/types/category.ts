@@ -8,4 +8,8 @@ interface Category {
 
 type CreateCategoryDTO = Omit<Category, "id">
 
-export type { Category, CreateCategoryDTO };
+interface CategoryWithExpenseCount extends Category {
+	expenseCount: number;
+}
+
+export type { Category, CreateCategoryDTO, CategoryWithExpenseCount };

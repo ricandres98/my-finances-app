@@ -13,14 +13,14 @@ const defaultCategories = [
 
 type Props = {
 	setIsNewCategory: (a: boolean) => void,
-	categories: Category[],
+	categories: Category[] | null,
 	defaultValue?: string,
 }
 
 // Pendiente construir un Combobox con estas categorías, para que el usuario pueda elegir una o escribir una nueva
 const CategorySelect = ({ setIsNewCategory, categories, defaultValue }: Props) => {
 
-	const categoriesToShow = categories.map((category) => category.name);
+	const categoriesToShow = categories ? categories.map((category) => category.name) : [];
 
 	const defaultCategoriesToAdd: string[] = [];
 	defaultCategories.forEach((category) => {

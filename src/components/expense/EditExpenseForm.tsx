@@ -11,7 +11,7 @@ import { dateToStringFormat } from "@/utils/dateToString";
 import { editExpense } from "@/actions/expenses/editExpense";
 
 type Props = {
-	categories: Category[],
+	categories: Category[] | null,
   expense: ExpenseWithCategory,
   closeModal: () => void,
 }

@@ -4,7 +4,7 @@ import { CreateUserDto, User } from "@/types/user.types";
 import bcrypt from "bcrypt";
 import { Model } from "sequelize";
 
-class UserService {
+const userService = {
 	async create(data: CreateUserDto): Promise<[null, true] | [Error, null]> {
 		try {
 			const { email, password, username } = data;
@@ -24,15 +24,15 @@ class UserService {
 		} catch(error) {
 			return [error as Error, null];
 		}
-	}
+	},
 
 	async find(email: User["email"]): Promise<Model<User> | null> {
 		return await sequelize.models.User.findOne({ where: { email: email } })
-	}
+	},
 
-	delete() { }
+	delete() { },
 
-	update() { }
+	update() { },
 }
 
-export { UserService };
+export { userService };

@@ -10,7 +10,7 @@ import { MainButton } from "../UI/MainButton";
 import { Category } from "@/types/category";
 
 type Props = {
-	categories: Category[],
+	categories: Category[] | null,
 }
 
 const CreateExpenseForm = ({ categories }: Props) => {

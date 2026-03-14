@@ -1,13 +1,9 @@
 "use server";
-import { AuthService } from "@/services/auth.service";
-import { CategoryService } from "@/services/category.service";
-import { ExpenseService } from "@/services/expense.service";
-import { CreateExpenseDTO, EditExpenseDTO } from "@/types/expense.type";
+import { authService } from "@/services/auth.service";
+import { categoryService } from "@/services/category.service";
+import { expenseService } from "@/services/expense.service";
+import { EditExpenseDTO } from "@/types/expense.type";
 import { revalidatePath } from "next/cache";
-
-const categoryService = new CategoryService();
-const authService = new AuthService();
-const expenseService = new ExpenseService();
 
 const editExpense = async (expenseId: number, formData: FormData) => {
 	const verifyResponse = await authService.verifyToken();

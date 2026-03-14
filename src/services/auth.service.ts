@@ -2,7 +2,7 @@ import { config } from "@/config";
 import { jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-class AuthService {
+const authService = {
 	async verifyToken() {
 		try {
 			const cookieStore = await cookies();
@@ -19,7 +19,7 @@ class AuthService {
 			return { error: "Invalid token", details: error instanceof Error ? error.message : String(error) };
 		}
 		
-	}
+	},
 }
 
-export { AuthService };
+export { authService };

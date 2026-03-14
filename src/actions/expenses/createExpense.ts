@@ -1,13 +1,9 @@
 "use server";
-import { AuthService } from "@/services/auth.service";
-import { CategoryService } from "@/services/category.service";
-import { ExpenseService } from "@/services/expense.service";
+import { authService } from "@/services/auth.service";
+import { categoryService } from "@/services/category.service";
+import { expenseService } from "@/services/expense.service";
 import { CreateExpenseDTO } from "@/types/expense.type";
 import { revalidatePath } from "next/cache";
-
-const categoryService = new CategoryService();
-const authService = new AuthService();
-const expenseService = new ExpenseService();
 
 const createExpense = async (formData: FormData) => {
 	const verifyResponse = await authService.verifyToken();
@@ -24,17 +20,6 @@ const createExpense = async (formData: FormData) => {
 	const date = formData.get("date") as string;
 	const category = formData.get("category") as string;
 	const newCategory = formData.get("new-category") as string;
-
-
-	// BORRAR
-	console.log("CREATE EXPENSE, se recibieron los datos del formulario: ", {
-		amountBs,
-		rate,
-		amountUsd,
-		description,
-		date,
-		category,
-	});
 
 	// Revisar si la categoría ya existe
 	const itExists = await categoryService.checkExistence(category, id);

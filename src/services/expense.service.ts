@@ -2,7 +2,7 @@ import { sequelize } from "@/libs/sequelize";
 import type { CreateExpenseDTO, EditExpenseDTO, Expense, ExpenseWithCategory } from "@/types/expense.type";
 import { Model } from "sequelize";
 
-class ExpenseService {
+const expenseService = {
 	async create(data: CreateExpenseDTO): Promise<[null, number] | [Error, null]> {
 		try {
 			const newExpense = await sequelize.models.Expense.create({
@@ -14,7 +14,7 @@ class ExpenseService {
 		} catch(error) {
 			return [error as Error, null];
 		}
-	}
+	},
 
 	async findAll(userId: Expense["userId"]): Promise<Model<Expense>[] | null> {
 		return await sequelize.models.Expense.findAll({ 
@@ -23,7 +23,7 @@ class ExpenseService {
 			order: [["date", "DESC"], ["createdAt", "DESC"]],
 			raw: false,
 		});
-	}
+	},
 
 	async findAllRaw(userId: Expense["userId"]): Promise<ExpenseWithCategory[] | null> {
 		return await sequelize.models.Expense.findAll({ 
@@ -33,11 +33,11 @@ class ExpenseService {
 			raw: true,
 			nest: true,
 		}) as unknown as ExpenseWithCategory[] | null;
-	}
+	},
 	
 	async findByCategory(userId: Expense["userId"], categoryId: Expense["categoryId"]): Promise<Model<Expense>[] | null>{
 		return await sequelize.models.Expense.findAll({ where: { userId, categoryId }});
-	}
+	},
 
 	async findOne(userId: Expense["userId"], id: Expense["id"]) {
 		try {
@@ -53,7 +53,7 @@ class ExpenseService {
 			console.error("Error fetching expense:", error);
 			return null;
 		}
-	}
+	},
 
 	async deleteOne(userId: Expense["userId"], id: Expense["id"]) {
 		try {
@@ -70,7 +70,7 @@ class ExpenseService {
 			console.error("Error deleting expense:", error);
 			return false;
 		}
-	 }
+	 },
 
 	async update(userId:Expense["userId"], id:Expense["id"], changes: EditExpenseDTO): Promise<Expense | undefined> {
 		try {
@@ -83,7 +83,7 @@ class ExpenseService {
 		} catch (error) {
 			console.error((error as Error).message)
 		}
-	}
+	},
 }
 
-export { ExpenseService };
+export { expenseService };

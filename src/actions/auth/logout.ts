@@ -11,5 +11,4 @@ export async function logout() {
         return { error: "No se pudo cerrar la sesión" };
 	}
     redirect("/login")
-
 }

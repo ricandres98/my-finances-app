@@ -1,6 +1,6 @@
 "use client";
 
-import { Category } from "@/types/category";
+import { Category, CategoryWithExpenseCount } from "@/types/category";
 import { CreateExpenseForm } from "./CreateExpenseForm";
 import { ExpenseList } from "./ExpenseList";
 import { ExpenseItem } from "./ExpenseItem";
@@ -10,7 +10,7 @@ import { Modal } from "../UI/Modal";
 import { EditExpenseForm } from "./EditExpenseForm";
 
 type Props = {
-  categoryList: Category[],
+  categoryList: CategoryWithExpenseCount[] | null,
   expenseList: ExpenseWithCategory[] | null,
 }
 

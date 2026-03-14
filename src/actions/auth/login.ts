@@ -2,12 +2,11 @@
 
 import { SignJWT } from "jose";
 import bcrypt from "bcrypt";
-import { UserService } from "@/services/user.service";
+import { userService } from "@/services/user.service";
 import { config } from "@/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const service = new UserService();
 
 export async function login(formData: FormData) {
 	let isLoginSuccess = false;
@@ -21,7 +20,7 @@ export async function login(formData: FormData) {
 		}
 
 		// 2- Verificar credenciales
-		const user = await service.find(email.toString());
+		const user = await userService.find(email.toString());
 
 		if (!user) {
 			return { error: "Credenciales inválidas" };

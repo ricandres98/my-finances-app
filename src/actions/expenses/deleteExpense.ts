@@ -1,12 +1,7 @@
 "use server";
-import { ExpenseService } from "@/services/expense.service";
-import { AuthService } from "@/services/auth.service";
+import { expenseService } from "@/services/expense.service";
+import { authService } from "@/services/auth.service";
 import { revalidatePath } from "next/cache";
-
-
-const expenseService = new ExpenseService();
-const authService = new AuthService();
-
 
 async function deleteExpense(expenseId: number) {
   const verificationResponse = await authService.verifyToken();
