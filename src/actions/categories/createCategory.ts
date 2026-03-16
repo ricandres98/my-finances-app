@@ -11,6 +11,9 @@ async function createCategory(name: string, path: string) {
     console.error(verificationResponse);
 		return verificationResponse;
   } else {
+    if(!name || name.trim() === "") {
+      return {error: "El nombre no puede estar vacío", details: "El nombre no puede estar vacío"};
+    }
     const itExists = await categoryService.checkExistence(name, verificationResponse.id);
 
     if (itExists) {

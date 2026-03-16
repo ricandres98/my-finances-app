@@ -8,6 +8,7 @@ import { useState } from "react";
 import { DeleteCategoryConfirmation } from "./DeleteCategoryConfirmation";
 import { deleteCategory } from "@/actions/categories/deleteCategory";
 import { CreateCategoryForm } from "./CreateCategoryForm";
+import { EditCategoryForm } from "./EditCategoryForm";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
@@ -85,6 +86,13 @@ const CategoriesClient = ({ categoryList, path }: Props) => {
           )}
           {createNew && (
             <CreateCategoryForm path={path} close={closeModal}/>
+          )}
+          {editCategory && (
+            <EditCategoryForm 
+              category={editCategory}
+              path={path} 
+              close={closeModal}
+            />
           )}
           {/* Establecer qué se mostrará dentro del modal según el estado 
           (create new: boolean, editCategory: Category, deleteCategory: number) */}

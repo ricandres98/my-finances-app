@@ -74,6 +74,20 @@ const categoryService = {
 		}
 	},
 
+	async edit(userId: Category["userId"], id: Category["id"], newName: Category["name"]): Promise<Error | null> {
+		try {
+			const category = await sequelize.models.Category.findOne({where: { userId, id }});
+			if(!category) {
+				throw new Error("Categoría no encontrada");
+			} else {
+				await category.update({ name: newName.toLowerCase() });
+				return null;
+			} 
+		} catch (error) {
+			console.error(error);
+			return error as Error;
+		}
+	}
 }
 
 export { categoryService };
