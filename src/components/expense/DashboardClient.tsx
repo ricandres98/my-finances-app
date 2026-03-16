@@ -8,6 +8,7 @@ import { ExpenseWithCategory } from "@/types/expense.type";
 import { useState } from "react";
 import { Modal } from "../UI/Modal";
 import { EditExpenseForm } from "./EditExpenseForm";
+import { CardContainer } from "../UI/CardContainer";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
@@ -18,9 +19,11 @@ const DashboardClient = ({ categoryList, expenseList }: Props) => {
   const [expenseToEdit, setExpenseToEdit] = useState<ExpenseWithCategory | null>(null);
   return (
     <>
-      <main className="w-full md:flex md:gap-6 px-4 py-8 overflow-y-auto focus-visible:outline-none">
+      <main className="w-full md:flex md:gap-6 px-4 py-8 overflow-y-auto focus-visible:outline-none [scrollbar-gutter:stable]">
         <div className="min-w-sm ">
-          <CreateExpenseForm categories={categoryList} />
+          <CardContainer>
+            <CreateExpenseForm categories={categoryList} />
+          </CardContainer>
         </div>
         <div className="w-full">
           <ExpenseList>

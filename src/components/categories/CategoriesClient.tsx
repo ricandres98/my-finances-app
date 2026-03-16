@@ -58,7 +58,7 @@ const CategoriesClient = ({ categoryList, path }: Props) => {
 
   return (
     <>
-      <main className="overflow-y-auto">
+      <main className="overflow-y-auto [scrollbar-gutter:stable]">
         <div className="p-6">
           <MainButton className="w-full text-lg" onClick={openNewCategoryForm} type="button">Nueva categoría +</MainButton>
         </div>

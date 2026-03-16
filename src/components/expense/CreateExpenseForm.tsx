@@ -8,19 +8,21 @@ import { GroupRadioInputs } from "../UI/GroupRadioInputs";
 import { InputField } from "../UI/InputField";
 import { MainButton } from "../UI/MainButton";
 import { Category } from "@/types/category";
+import { CardContainer } from "../UI/CardContainer";
 
 type Props = {
 	categories: Category[] | null,
+	close?: () => void,
 }
 
-const CreateExpenseForm = ({ categories }: Props) => {
-	const [ currency, setCurrency ] = useState<"bs" | "usd">("bs");
-	const [ error, setError ] = useState<string | null>(null);
-	const [ loading, setLoading ] = useState(false);
+const CreateExpenseForm = ({ categories, close }: Props) => {
+	const [currency, setCurrency] = useState<"bs" | "usd">("bs");
+	const [error, setError] = useState<string | null>(null);
+	const [loading, setLoading] = useState(false);
 
-	const [ isNewCategory, setIsNewCategory ] = useState(false);
+	const [isNewCategory, setIsNewCategory] = useState(false);
 	const form = useRef<HTMLFormElement>(null);
-	
+
 	const handleSubmit: React.SubmitEventHandler = async (e) => {
 		try {
 			e.preventDefault();
@@ -28,14 +30,15 @@ const CreateExpenseForm = ({ categories }: Props) => {
 			setError(null)
 			if (form.current) {
 				const formData = new FormData(form.current!);
-				
+
 				await createExpense(formData);
-				
+
 				setLoading(false);
 				setIsNewCategory(false);
+				if(close) close();
 				form.current.reset();
 			}
-			
+
 		} catch (error) {
 			setError((error as Error).message);
 			setLoading(false);
@@ -44,7 +47,7 @@ const CreateExpenseForm = ({ categories }: Props) => {
 	}
 
 	return (
-		<div className="p-4 space-y-4 bg-white rounded-xl shadow-sm border border-slate-200 w-full md:max-w-120">
+		<>
 			<div>
 				<span className="mr-4">Seleccione moneda del gasto:</span>
 				<GroupRadioInputs name="currency" options={[
@@ -57,27 +60,27 @@ const CreateExpenseForm = ({ categories }: Props) => {
 				{currency === "bs" ? (
 					<>
 						<InputField htmlFor="amountBs" text="Monto: ">
-							<InputNumber name="amountBs" id="amountBs" required={true} simbol="Bs"/>
+							<InputNumber name="amountBs" id="amountBs" required={true} simbol="Bs" />
 						</InputField>
 						<InputField htmlFor="rate" text="Tasa: ">
-							<InputNumber name="rate" id="rate" required={true} simbol="Bs/$"/>
+							<InputNumber name="rate" id="rate" required={true} simbol="Bs/$" />
 						</InputField>
 					</>
 				) : (
 					<InputField htmlFor="amountUsd" text="Monto">
-						<InputNumber name="amountUsd" id="amountUsd" required={true} simbol="$"/>
+						<InputNumber name="amountUsd" id="amountUsd" required={true} simbol="$" />
 					</InputField>
 				)}
 				<InputField htmlFor="description" text="Descripción: ">
 					<input type="text" id="description" name="description"
-						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"/> 
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none" />
 				</InputField>
 				<InputField htmlFor="date" text="Fecha: ">
-					<input type="date" id="date" name="date" required 
-						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"/>
+					<input type="date" id="date" name="date" required
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none" />
 				</InputField>
 				<InputField htmlFor="category" text="Categoría: ">
-					<CategorySelect setIsNewCategory={setIsNewCategory} categories={categories}/>
+					<CategorySelect setIsNewCategory={setIsNewCategory} categories={categories} />
 				</InputField>
 				{isNewCategory && (
 					<InputField htmlFor="new-category" text="Nombre de la nueva categoría: ">
@@ -92,7 +95,7 @@ const CreateExpenseForm = ({ categories }: Props) => {
 				)}
 			</form>
 			{error && <p className="text-red-800">{error}</p>}
-		</div>
+		</>
 	)
 }
 
