@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Modal } from "../UI/Modal";
 import { EditExpenseForm } from "./EditExpenseForm";
 import { CardContainer } from "../UI/CardContainer";
+import { StatCard } from "../UI/StatCard";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
@@ -23,14 +24,9 @@ const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExp
     <>
       <main className="w-full px-4 py-8 overflow-y-auto focus-visible:outline-none [scrollbar-gutter:stable]">
         <section className="grid grid-cols-3 gap-4 px-4 py-4 ">
-          <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
-            <h3 className="text-sm text-slate-500 mb-2">Este mes: </h3>
-            <p className="text-2xl font-semibold text-slate-900">${monthlyExpenses}</p>
-          </div>
-          <div className="p-4 bg-white rounded-xl shadow-sm border border-slate-200">
-            <h3 className="text-sm text-slate-500 mb-2">Esta semana: </h3>
-            <p className="text-2xl font-semibold text-slate-900">${weeklyExpenses}</p>
-          </div>
+          <StatCard title="Este mes" value={monthlyExpenses}/>
+          <StatCard title="Este semana" value={weeklyExpenses}/>
+          <StatCard title="Este semana" value={weeklyExpenses}/>
         </section>
         <section className="md:flex md:gap-6 px-4 py-8">
           <div className="min-w-sm ">
