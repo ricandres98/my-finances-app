@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { Model } from "sequelize";
 
 const userService = {
-	async create(data: CreateUserDto): Promise<[null, true] | [Error, null]> {
+	async create(data: CreateUserDto): Promise<[null, number] | [Error, null]> {
 		try {
 			const { email, password, username } = data;
 			const userExists = await this.find(email);
@@ -14,12 +14,12 @@ const userService = {
 				return [new Error("Email ya registrado"), null]
 			}
 
-			await sequelize.models.User.create({
+			const newUser = await sequelize.models.User.create({
 				email,
 				username,
 				password: await bcrypt.hash(password, config.hashingSaltRound),
 			});
-			return [null, true];
+			return [null, newUser.dataValues.id as number];
 
 		} catch(error) {
 			return [error as Error, null];

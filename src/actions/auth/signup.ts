@@ -1,7 +1,15 @@
 "use server";
 
+import { categoryService } from "@/services/category.service";
 import { userService } from "@/services/user.service";
 import { redirect } from "next/navigation";
+
+const defaultCategories = [
+	"servicios",
+	"alimentación",
+	"transporte",
+	"ahorro",
+];
 
 export async function signup(formData: FormData) {
 
@@ -21,6 +29,13 @@ export async function signup(formData: FormData) {
 
 	if (response[0]) {
 		return { error: response[0].message };
+	} else {
+		defaultCategories.forEach(async (category) => {
+			await categoryService.create({ 
+				name: category,
+				userId: response[1],
+			 })
+		})
 	}
 
 	redirect("/login");

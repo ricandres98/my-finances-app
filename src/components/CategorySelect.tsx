@@ -1,16 +1,6 @@
 import { Category } from "@/types/category";
 import { ChangeEventHandler } from "react";
 
-const defaultCategories = [
-	"servicios",
-	"alimentación",
-	"ahorro",
-	"transporte",
-	"suscripciones",
-	"shopping",
-	"salud",
-];
-
 type Props = {
 	setIsNewCategory: (a: boolean) => void,
 	categories: Category[] | null,
@@ -20,13 +10,7 @@ type Props = {
 // Pendiente construir un Combobox con estas categorías, para que el usuario pueda elegir una o escribir una nueva
 const CategorySelect = ({ setIsNewCategory, categories, defaultValue }: Props) => {
 
-	const categoriesToShow = categories ? categories.map((category) => category.name) : [];
-
-	const defaultCategoriesToAdd: string[] = [];
-	defaultCategories.forEach((category) => {
-		if (!categoriesToShow.includes(category)) defaultCategoriesToAdd.push(category);
-	});
-
+	const categoriesList = categories ? categories.map((category) => category.name) : [];
 
 	const handleChange: ChangeEventHandler<HTMLSelectElement, HTMLSelectElement> = (e) => {
 		const value = e.target.value;
@@ -45,7 +29,7 @@ const CategorySelect = ({ setIsNewCategory, categories, defaultValue }: Props) =
 					Seleccione una categoría
 				</option>
 				<option value="nueva categoría" key={"nueva categoría"}>nueva categoría</option>
-				{defaultCategoriesToAdd.concat(categoriesToShow).map((category) => (
+				{categoriesList.map((category) => (
 					<option value={category} key={category}>{category}</option>
 				))}
 		</select>
