@@ -1,6 +1,7 @@
 import { sequelize } from "@/libs/sequelize";
 import type { CreateExpenseDTO, EditExpenseDTO, Expense, ExpenseWithCategory } from "@/types/expense.type";
-import { Model } from "sequelize";
+import { startOfMonth, startOfWeek } from "@/utils/dateUtils";
+import { Model, Op } from "sequelize";
 
 const expenseService = {
 	async create(data: CreateExpenseDTO): Promise<[null, number] | [Error, null]> {
@@ -82,6 +83,42 @@ const expenseService = {
 			}
 		} catch (error) {
 			console.error((error as Error).message)
+		}
+	},
+
+	async getTotalThisMonth(userId: Expense["userId"]) {
+		try {
+			const amount = await sequelize.models.Expense.sum("amount_usd", {
+				where: {
+					userId,
+					date: {
+						[Op.gte]: startOfMonth(),
+					}
+				}
+			});
+	
+			return amount;
+
+		} catch (error) {
+			console.error(error)
+		}
+	},
+
+	async getTotalThisWeek(userId: Expense["userId"]) {
+		try {
+			const amount = await sequelize.models.Expense.sum("amount_usd", {
+				where: {
+					userId,
+					date: {
+						[Op.gte]: startOfWeek(),
+					}
+				},
+			});
+	
+			return amount;
+
+		} catch (error) {
+			console.error(error)
 		}
 	},
 }

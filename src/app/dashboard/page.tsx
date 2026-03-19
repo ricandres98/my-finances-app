@@ -8,9 +8,17 @@ export default async function Dashboard() {
   const expenseList = await expenseService.findAllRaw(id);
   const categoryList = await categoryService.findAll(id);
 
+  const monthlyExpenses = await expenseService.getTotalThisMonth(id);
+  const weeklyExpenses = await expenseService.getTotalThisWeek(id);
+
   return (
     <>
-      <DashboardClient expenseList={expenseList} categoryList={categoryList}/>
+      <DashboardClient 
+        expenseList={expenseList} 
+        categoryList={categoryList} 
+        monthlyExpenses={monthlyExpenses}
+        weeklyExpenses={weeklyExpenses}
+        />
     </>
   );
 }
