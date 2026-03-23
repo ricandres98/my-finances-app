@@ -39,7 +39,7 @@ type Props = {
 
 const BaseLayout = ({ routeAt, children }: Props & React.PropsWithChildren) => {
   return (
-    <div className="h-dvh grid lg:grid-cols-[14rem_1fr] overflow-hidden lg:grid-rows-[minmax(6rem,min-content)_1fr]">
+    <div className="h-dvh grid lg:grid-cols-[14rem_1fr] overflow-hidden grid-rows-[minmax(4.5rem,min-content)_1fr] md:grid-rows-[minmax(6rem,min-content)_1fr]">
       <Sidebar routeAt={routeAt} navRoutes={navRoutes} />
       <Header />
       {children}

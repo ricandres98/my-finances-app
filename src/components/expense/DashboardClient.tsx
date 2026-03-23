@@ -10,6 +10,7 @@ import { Modal } from "../UI/Modal";
 import { EditExpenseForm } from "./EditExpenseForm";
 import { CardContainer } from "../UI/CardContainer";
 import { StatCard } from "../UI/StatCard";
+import { Header } from "../layout/Header";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
@@ -29,7 +30,7 @@ const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExp
           <StatCard title="Esta semana" value={weeklyExpenses}/>
         </section>
         <section className="md:flex md:gap-6 px-4 py-8">
-          <div className="min-w-xs mb-10">
+          <div className="sm:min-w-xs mb-10">
             <CardContainer>
               <CreateExpenseForm categories={categoryList} />
             </CardContainer>
