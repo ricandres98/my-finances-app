@@ -54,7 +54,7 @@ const ExpensesClient = ({ expenseList, categoryList }: Props) => {
 
   return (
     <>
-      <main className="overflow-y-auto [scrollbar-gutter:stable]">
+      <main className="overflow-y-auto [scrollbar-gutter:stable] pb-8">
         <div className="p-6">
           <MainButton className="w-full text-lg" onClick={() => setCreateNew(true)} type="button">Nuevo gasto +</MainButton>
         </div>

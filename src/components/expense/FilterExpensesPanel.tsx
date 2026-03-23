@@ -30,13 +30,13 @@ const FilterExpensesPanel = ({ expenseList, categoryList, setCategoryFilter, set
 
   return (
     <div className="p-6">
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm font-semibold flex gap-8">
+          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm font-semibold flex flex-col sm:flex-row gap-8">
             <InputField htmlFor="category-filter" text="Filtrar por categoría: ">
               <select
                 name="category-filter"
                 id="category-filter"
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="px-3 py-2 border border-slate-300 rounded-lg font-medium focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg font-medium focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
               >
                 <option value="">Todas las categorías</option>
                 {
@@ -52,7 +52,7 @@ const FilterExpensesPanel = ({ expenseList, categoryList, setCategoryFilter, set
                 name="currency-filter"
                 id="currency-filter"
                 onChange={(e) => setCurrencyFilter(e.target.value as "bs" | "usd" | null)}
-                className="px-3 py-2 border border-slate-300 rounded-lg font-medium focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg font-medium focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
               >
                 <option value="">Todas las monedas</option>
                 <option key="bs" value="bs">Bs</option>
@@ -64,7 +64,7 @@ const FilterExpensesPanel = ({ expenseList, categoryList, setCategoryFilter, set
                 name="date-filter"
                 id="date-filter"
                 onChange={(e) => setDateFilter(e.target.value)}
-                className="px-3 py-2 border border-slate-300 rounded-lg font-medium focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+                className="w-full px-3 py-2 border border-slate-300 rounded-lg font-medium focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
               >
                 <option value="">Todas las fechas</option>
                 {monthYearOptions.map((option) => (

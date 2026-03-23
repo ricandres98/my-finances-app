@@ -10,7 +10,7 @@ const InputField = ({ htmlFor, text, children, className }: React.PropsWithChild
 			<label htmlFor={htmlFor}
 				className={"flex items-center " + className && ""}
 			>
-				<span className="mr-2">{text}</span>
+				<span className="inline-block mb-2 sm:mr-2">{text}</span>
 				{children}
 			</label>
 		</>

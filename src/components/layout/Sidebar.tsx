@@ -1,32 +1,15 @@
 import { logout } from "@/actions/auth/logout";
 import Link from "next/link";
-
-const navRoutes = [
-  {
-    route: "/dashboard",
-    description: "Dashboard"
-  },
-  {
-    route: "/expenses",
-    description: "Gastos"
-  },
-  {
-    route: "/categories",
-    description: "Categorías"
-  },
-  {
-    route: "/reports",
-    description: "Reportes"
-  },
-]
+import { Route } from "./BaseLayout";
 
 type Props = {
   routeAt: string;
+  navRoutes: Route[];
 }
 
-const Sidebar = ({ routeAt }: Props) => {
+const Sidebar = ({ routeAt, navRoutes }: Props) => {
   return (
-    <aside className="h-dvh border-e flex flex-col justify-between p-6 border-slate-200 shadow-sm md:row-start-1 md:row-end-3">
+    <aside className="hidden h-dvh border-e lg:flex lg:flex-col lg:justify-between p-6 border-slate-200 shadow-sm md:row-start-1 md:row-end-3">
       <nav>
         <ul>
           {navRoutes.map((route) => (

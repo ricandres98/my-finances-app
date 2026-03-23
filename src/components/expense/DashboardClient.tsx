@@ -23,13 +23,13 @@ const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExp
   return (
     <>
       <main className="w-full px-4 py-8 overflow-y-auto focus-visible:outline-none [scrollbar-gutter:stable]">
-        <section className="grid grid-cols-3 gap-4 px-4 py-4 ">
+        <section className="grid grid-cols-2 sm:grid-cols-3 gap-4 px-4 pb-4 ">
           <StatCard title="Este mes" value={monthlyExpenses}/>
-          <StatCard title="Este semana" value={weeklyExpenses}/>
-          <StatCard title="Este semana" value={weeklyExpenses}/>
+          <StatCard title="Esta semana" value={weeklyExpenses}/>
+          <StatCard title="Esta semana" value={weeklyExpenses}/>
         </section>
         <section className="md:flex md:gap-6 px-4 py-8">
-          <div className="min-w-sm ">
+          <div className="min-w-xs mb-10">
             <CardContainer>
               <CreateExpenseForm categories={categoryList} />
             </CardContainer>

@@ -58,12 +58,12 @@ const CategoriesClient = ({ categoryList, path }: Props) => {
 
   return (
     <>
-      <main className="overflow-y-auto [scrollbar-gutter:stable]">
+      <main className="overflow-y-auto [scrollbar-gutter:stable] pb-8 sm:pb-0">
         <div className="p-6">
           <MainButton className="w-full text-lg" onClick={openNewCategoryForm} type="button">Nueva categoría +</MainButton>
         </div>
         {/* Contenedor de grilla de categorías */}
-        <div className="grid grid-cols-2 p-6 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 p-6 pb-10 sm:pb-6 gap-6">
           {/* Card de categoría */}
           {categoryList && categoryList.map((category) => (
             <CategoryItem 
