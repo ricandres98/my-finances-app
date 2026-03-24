@@ -1,4 +1,4 @@
-import { CategoryWithExpenseCount } from "@/types/category";
+import { CategoryWithExpenseCount } from "@/types/category.type";
 import { MainButton } from "../UI/MainButton";
 
 type Props = {

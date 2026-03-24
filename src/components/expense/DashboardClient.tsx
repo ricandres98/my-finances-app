@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoryWithExpenseCount } from "@/types/category";
+import { CategoryWithExpenseCount } from "@/types/category.type";
 import { CreateExpenseForm } from "./CreateExpenseForm";
 import { ExpenseList } from "./ExpenseList";
 import { ExpenseItem } from "./ExpenseItem";
@@ -31,7 +31,7 @@ const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExp
         </section>
         <section className="md:flex md:gap-6 px-4 py-8">
           <div className="sm:min-w-xs mb-10">
-            <CardContainer>
+            <CardContainer className="w-full md:max-w-120">
               <CreateExpenseForm categories={categoryList} />
             </CardContainer>
           </div>

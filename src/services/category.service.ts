@@ -1,6 +1,6 @@
 import { Expense } from "@/db/models/expense.model";
 import { sequelize } from "@/libs/sequelize";
-import { Category, CategoryWithExpenseCount, CreateCategoryDTO } from "@/types/category";
+import { Category, CategoryWithExpenseCount, CreateCategoryDTO } from "@/types/category.type";
 import { col, fn } from "sequelize";
 
 const categoryService = {

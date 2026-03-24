@@ -1,5 +1,5 @@
 import { Model } from "sequelize";
-import { Category } from "./category";
+import { Category } from "./category.type";
 import { User } from "./user.types";
 
 interface Expense {

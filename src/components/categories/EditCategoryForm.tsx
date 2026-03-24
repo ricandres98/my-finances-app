@@ -2,7 +2,7 @@
 import { SubmitEventHandler, useState } from "react";
 import { MainButton } from "../UI/MainButton";
 import { editCategory } from "@/actions/categories/editCategory";
-import type { CategoryWithExpenseCount } from "@/types/category";
+import type { CategoryWithExpenseCount } from "@/types/category.type";
 
 type Props = {
   path: string,

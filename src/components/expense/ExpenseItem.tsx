@@ -30,9 +30,9 @@ const ExpenseItem = ({ expense, setEdit }: Props) => {
 				<div className="flex flex-col items-end">
 					<div>
 						<span className="text-xl text-slate-500">{expense.amountBs ? "≈" : ""}</span>
-						<span className="text-lg sm:text-xl font-semibold text-slate-900"> ${expense.amountUsd}</span>
+						<span className="text-lg sm:text-xl tracking-wider font-semibold text-slate-900"> ${expense.amountUsd}</span>
 					</div>
-					{expense.amountBs && <span className="text-sm text-slate-500"> Bs {expense.amountBs}</span>}
+					{expense.amountBs && <span className="text-sm tracking-wider text-slate-500"> Bs {expense.amountBs}</span>}
 				</div>
 				<div className="flex gap-4">
 					<button className="hover:text-blue-500 cursor-pointer" onClick={() => setEdit(expense)}>Editar</button>

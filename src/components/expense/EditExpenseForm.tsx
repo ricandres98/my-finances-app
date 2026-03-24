@@ -5,7 +5,7 @@ import { InputField } from "../UI/InputField";
 import { InputNumber } from "../UI/InputNumber";
 import { CategorySelect } from "../CategorySelect";
 import { MainButton } from "../UI/MainButton";
-import type { Category } from "@/types/category";
+import type { Category } from "@/types/category.type";
 import { ExpenseWithCategory } from "@/types/expense.type";
 import { dateToStringFormat } from "@/utils/dateToString";
 import { editExpense } from "@/actions/expenses/editExpense";

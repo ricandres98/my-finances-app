@@ -5,7 +5,7 @@ import { ExpenseList } from "./ExpenseList";
 import { ExpenseItem } from "./ExpenseItem";
 import { useState } from "react";
 import { Modal } from "../UI/Modal";
-import { Category } from "@/types/category";
+import { Category } from "@/types/category.type";
 import { CreateExpenseForm } from "./CreateExpenseForm";
 import { EditExpenseForm } from "./EditExpenseForm";
 import { FilterExpensesPanel } from "./FilterExpensesPanel";

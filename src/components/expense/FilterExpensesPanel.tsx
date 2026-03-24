@@ -1,6 +1,6 @@
 import { ExpenseWithCategory } from "@/types/expense.type";
 import { InputField } from "../UI/InputField";
-import { Category } from "@/types/category";
+import { Category } from "@/types/category.type";
 
 const getListOfDates = (expenses: ExpenseWithCategory[] | null) => {
   if (!expenses) return []

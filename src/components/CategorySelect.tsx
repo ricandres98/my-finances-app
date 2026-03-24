@@ -1,4 +1,4 @@
-import { Category } from "@/types/category";
+import { Category } from "@/types/category.type";
 import { ChangeEventHandler } from "react";
 
 type Props = {
