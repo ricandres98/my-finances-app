@@ -6,7 +6,7 @@ export default async function CategoriesPage() {
   const { id } = await authService.verifyToken() as { id: number, exp: number };
 
   const categoryList = await categoryService.findAll(id);
-  // console.log(categoryList)
+  console.log(categoryList)
 
   return (
     <CategoriesClient categoryList={categoryList} path="/categories"/>

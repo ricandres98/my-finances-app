@@ -9,6 +9,7 @@ import { DeleteCategoryConfirmation } from "./DeleteCategoryConfirmation";
 import { deleteCategory } from "@/actions/categories/deleteCategory";
 import { CreateCategoryForm } from "./CreateCategoryForm";
 import { EditCategoryForm } from "./EditCategoryForm";
+import { randomHex } from "@/utils/randomHex";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
@@ -58,7 +59,7 @@ const CategoriesClient = ({ categoryList, path }: Props) => {
 
   return (
     <>
-      <main className="overflow-y-auto [scrollbar-gutter:stable] pb-8 sm:pb-0">
+      <main className="overflow-y-auto [scrollbar-gutter:stable] pb-15 lg:pb-10 ">
         <div className="p-6">
           <MainButton className="w-full text-lg" onClick={openNewCategoryForm} type="button">Nueva categoría +</MainButton>
         </div>
@@ -71,6 +72,7 @@ const CategoriesClient = ({ categoryList, path }: Props) => {
               name={category.name} key={category.id} 
               onDelete={() => confirmDeleteCategory(category)} 
               onEdit={() => openEditCategoryForm(category)}
+              color={category.color}
             />
           ))}
         </div>

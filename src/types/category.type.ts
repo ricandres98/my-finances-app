@@ -4,6 +4,7 @@ interface Category {
 	id: number,
 	name: string,
 	userId: User["id"],
+	color?: string;
 }
 
 type CreateCategoryDTO = Omit<Category, "id">

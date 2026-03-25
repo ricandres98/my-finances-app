@@ -1,12 +1,15 @@
 import { Expense } from "@/db/models/expense.model";
 import { sequelize } from "@/libs/sequelize";
 import { Category, CategoryWithExpenseCount, CreateCategoryDTO } from "@/types/category.type";
+import { randomHex } from "@/utils/randomHex";
 import { col, fn } from "sequelize";
 
 const categoryService = {
 	async create(data: CreateCategoryDTO): Promise<[null, number] | [Error, null]> {
 		try {
 			const { name, userId } = data;
+
+			const color = randomHex();
 
 			const alreadyExists = await this.checkExistence(name, userId);
 
@@ -16,6 +19,7 @@ const categoryService = {
 			} else {
 				const newCategory = await sequelize.models.Category.create({
 					...data,
+					color,
 				});
 				return [null, newCategory.dataValues.id as number];
 			}
@@ -48,6 +52,7 @@ const categoryService = {
 				attributes: [
 					"id",
 					"name",
+					"color",
 					[fn("COUNT", col("expenses.id")) , "expenseCount"]
 				],
 				group: ["Category.id"]
