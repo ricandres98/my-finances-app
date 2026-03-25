@@ -1,6 +1,6 @@
 import { Expense } from "@/db/models/expense.model";
 import { sequelize } from "@/libs/sequelize";
-import { Category, CategoryWithExpenseCount, CreateCategoryDTO } from "@/types/category.type";
+import { Category, CategoryWithExpenseCount, CreateCategoryDTO, EditCategoryDTO } from "@/types/category.type";
 import { randomHex } from "@/utils/randomHex";
 import { col, fn } from "sequelize";
 
@@ -79,13 +79,13 @@ const categoryService = {
 		}
 	},
 
-	async edit(userId: Category["userId"], id: Category["id"], newName: Category["name"]): Promise<Error | null> {
+	async edit(userId: Category["userId"], { id, name, color } : EditCategoryDTO): Promise<Error | null> {
 		try {
 			const category = await sequelize.models.Category.findOne({where: { userId, id }});
 			if(!category) {
 				throw new Error("Categoría no encontrada");
 			} else {
-				await category.update({ name: newName.toLowerCase() });
+				await category.update({ name: name.toLowerCase(), color });
 				return null;
 			} 
 		} catch (error) {

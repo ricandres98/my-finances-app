@@ -7,10 +7,12 @@ interface Category {
 	color?: string;
 }
 
-type CreateCategoryDTO = Omit<Category, "id">
+type CreateCategoryDTO = Omit<Category, "id">;
+
+type EditCategoryDTO = Omit<Category, "userId">;
 
 interface CategoryWithExpenseCount extends Category {
 	expenseCount: number;
 }
 
-export type { Category, CreateCategoryDTO, CategoryWithExpenseCount };
+export type { Category, CreateCategoryDTO, CategoryWithExpenseCount, EditCategoryDTO };

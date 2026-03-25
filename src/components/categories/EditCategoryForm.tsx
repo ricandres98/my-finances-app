@@ -15,14 +15,21 @@ const EditCategoryForm = ({ category, close, path }: Props) => {
   const [ error, setError ] = useState<string | null>(null);
   const [ loading, setLoading ] = useState(false);  
   const [ categoryName, setCategoryName ] = useState<string>(category.name);
+  const [ categoryColor, setCategoryColor ] = useState<string | undefined>(category.color);
 
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
+    console.log("COLOR INPUT: ", categoryColor);
+
     try {
-      await editCategory(category.id, categoryName, path);
+      await editCategory({
+        id: category.id, 
+        name: categoryName,
+        color: categoryColor,
+      }, path);
       setLoading(false);
       setError(null);
       close();
@@ -47,6 +54,21 @@ const EditCategoryForm = ({ category, close, path }: Props) => {
           required={true}
           value={categoryName}
           onChange={(e) => {setCategoryName(e.target.value)}}
+        />
+      </label>
+      <label
+        htmlFor="category-color"
+        className="mb-8 block"
+      >
+        <span className="text-lg">Color: </span>
+        <input
+          id="category-color"
+          name="category-color"
+          className="mt-4 w-full h-10 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+          required={true}
+          type="color"
+          defaultValue={categoryColor ? categoryColor : "#FAFAFA"}
+          onChange={(e) => {setCategoryColor(e.target.value)}}
         />
       </label>
       {loading ? <span className="px-4 py-2">Espera...</span> : <MainButton className="w-full">Guardar</MainButton>}
