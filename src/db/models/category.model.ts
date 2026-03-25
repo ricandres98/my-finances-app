@@ -14,6 +14,10 @@ const CategorySchema = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	color: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
 	userId: {
 		field: 'user_id',
 		allowNull: false,
