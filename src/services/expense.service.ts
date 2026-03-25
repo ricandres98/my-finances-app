@@ -1,6 +1,6 @@
 import { sequelize } from "@/libs/sequelize";
 import type { CreateExpenseDTO, EditExpenseDTO, Expense, ExpenseWithCategory } from "@/types/expense.type";
-import { startOfMonth, startOfWeek } from "@/utils/dateUtils";
+import { endOfMonth, startOfMonth, startOfWeek } from "@/utils/dateUtils";
 import { Model, Op } from "sequelize";
 
 const expenseService = {
@@ -86,13 +86,13 @@ const expenseService = {
 		}
 	},
 
-	async getTotalThisMonth(userId: Expense["userId"]) {
+	async getTotalOfMonth(userId: Expense["userId"], month: number, year: number) {
 		try {
 			const amount = await sequelize.models.Expense.sum("amount_usd", {
 				where: {
 					userId,
 					date: {
-						[Op.gte]: startOfMonth(),
+						[Op.between]: [startOfMonth(month, year), endOfMonth(month, year)],
 					}
 				}
 			});

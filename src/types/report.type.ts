@@ -1,7 +1,7 @@
 type reportTotalByCategory = {
   id: number,
   name: string,
-  total_spent: number,
+  total_spent: string,
 }
 
 type reportTotalByDate = {

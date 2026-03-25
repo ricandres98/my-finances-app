@@ -1,9 +1,21 @@
-const startOfMonth = () => {
-  const now = new Date();
+/**
+ * 
+ * @param month a number describing the index of the month starting from 0 to january through 11 for december
+ * @returns A Date object that represents the first day of the given month
+ */
+const startOfMonth = (month: number, year: number) => {
   return new Date(
-    now.getFullYear(),
-    now.getMonth(),
+    year,
+    month,
     1
+  );
+}
+
+const endOfMonth = (month: number, year: number) => {
+  return new Date(
+    year,
+    month + 1,
+    0
   );
 }
 
@@ -20,4 +32,4 @@ const startOfWeek = () => {
 }
 
 
-export { startOfMonth, startOfWeek };
+export { startOfMonth, endOfMonth,startOfWeek };
