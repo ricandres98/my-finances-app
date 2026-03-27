@@ -1,26 +1,31 @@
+import { BarGraphicDailyTotal } from "@/components/reports/LineGraphic";
 import { TotalByCategoryItem } from "@/components/reports/TotalByCategoryItem";
-import { TotalByDateItem } from "@/components/reports/TotalByDateItem";
 import { CardContainer } from "@/components/UI/CardContainer";
 import { authService } from "@/services/auth.service";
 import { expenseService } from "@/services/expense.service";
 import { reportService } from "@/services/report.service";
+import { dateToStringDateMonth } from "@/utils/dateToString";
+import { dayOfMaxActivity } from "@/utils/dayOfMaxActivity";
+import { generateFullMonthData } from "@/utils/generateFullMonthData";
 
 export default async function ReportsPage() {
   const { id } = await authService.verifyToken() as { id: number, exp: number };
 
   const now = new Date();
   now.setDate(0);
-  const lastMonth = now.getMonth() + 1;
+  const lastMonth = now.getMonth() + 1; // No es el index, sino el número real del mes pasado
+  const lastMonthIndex = lastMonth - 1; // Para usar en funciones que requieren el index del mes, como startOfMonth
 
   const totalByCategories = await reportService.getTotalByCategories(id, lastMonth, now.getFullYear());
   const totalByDates = await reportService.getTotalByDates(id, lastMonth, now.getFullYear());
-  const totalLastMonth = await expenseService.getTotalOfMonth(id, lastMonth - 1, now.getFullYear());
+  const totalLastMonth = await expenseService.getTotalOfMonth(id, lastMonthIndex, now.getFullYear());
 
-  console.log("TOTAL BY CATEGORIES ", totalByCategories);
+  const maxActivityReport = dayOfMaxActivity(totalByDates);
+  console.log("DIA DE MAYOR ACTIVIDAD ",maxActivityReport )
 
   if (totalLastMonth)
   return (
-    <main className="px-4 pb-8 overflow-y-auto [scrollbar-gutter:stable]">
+    <main className="px-4 pb-20 lg:pb-8 overflow-y-auto [scrollbar-gutter:stable]">
       <div className="py-6">
         <h1 className="text-xl font-bold text-slate-900 capitalize">
           {now.toLocaleDateString("es-ES", {month: "long"})} {now.getFullYear()}
@@ -42,12 +47,12 @@ export default async function ReportsPage() {
           </ul>
         </CardContainer>
         <CardContainer>
-          <h2>Gastos por día</h2>
-          <ul>
-            {totalByDates.map(report => (
-              <TotalByDateItem key={report.date.getTime()} amount={report.total_spent} date={report.date} />
-            ))}
-          </ul>
+          <h2 className="text-normal text-slate-500">Gastos por día</h2>
+          <p className="text-xl font-semibold mb-6">
+            Día de mayor actividad: {dateToStringDateMonth(maxActivityReport.date)}
+            <span className="tracking-wider text-lg text-slate-500 font-medium"> (${maxActivityReport.total_spent})</span>
+          </p>
+          <BarGraphicDailyTotal data={generateFullMonthData(totalByDates, lastMonthIndex, now.getFullYear()) } />
         </CardContainer>
       </div>
     </main>
