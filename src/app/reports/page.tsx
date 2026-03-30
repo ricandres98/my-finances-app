@@ -21,9 +21,8 @@ export default async function ReportsPage() {
   const totalLastMonth = await expenseService.getTotalOfMonth(id, lastMonthIndex, now.getFullYear());
 
   const maxActivityReport = dayOfMaxActivity(totalByDates);
-  console.log("DIA DE MAYOR ACTIVIDAD ",maxActivityReport )
+  console.log("DIA DE MAYOR ACTIVIDAD ", maxActivityReport);
 
-  if (totalLastMonth)
   return (
     <main className="px-4 pb-20 lg:pb-8 overflow-y-auto [scrollbar-gutter:stable]">
       <div className="py-6">
@@ -32,28 +31,36 @@ export default async function ReportsPage() {
         </h1>
       </div>
       <div className="grid md:grid-cols-2 gap-6">
-        <CardContainer>
-          <h2 className="text-normal text-slate-500">Gastos por categoría</h2>
-          <p className="text-2xl font-semibold mb-6">Total: <span className="tracking-wider">${totalLastMonth}</span></p>
-          <ul className="flex flex-col gap-2">
-            {totalByCategories.map(category => (
-              <TotalByCategoryItem 
-                key={category.id} 
-                amount={Number(category.total_spent)} 
-                categoryName={category.name}
-                percentage={Number(category.total_spent) / totalLastMonth * 100}
-              />
-            ))}
-          </ul>
-        </CardContainer>
-        <CardContainer>
-          <h2 className="text-normal text-slate-500">Gastos por día</h2>
-          <p className="text-xl font-semibold mb-6">
-            Día de mayor actividad: {dateToStringDateMonth(maxActivityReport.date)}
-            <span className="tracking-wider text-lg text-slate-500 font-medium"> (${maxActivityReport.total_spent})</span>
-          </p>
-          <BarGraphicDailyTotal data={generateFullMonthData(totalByDates, lastMonthIndex, now.getFullYear()) } />
-        </CardContainer>
+        {totalLastMonth && totalLastMonth > 0 ? (
+          <>
+            <CardContainer>
+              <h2 className="text-normal text-slate-500">Gastos por categoría</h2>
+              <p className="text-2xl font-semibold mb-6">Total: <span className="tracking-wider">${totalLastMonth}</span></p>
+              <ul className="flex flex-col gap-2">
+                {totalByCategories.map(category => (
+                  <TotalByCategoryItem
+                    key={category.id}
+                    amount={Number(category.total_spent)}
+                    categoryName={category.name}
+                    percentage={totalLastMonth ? Number(category.total_spent) / totalLastMonth * 100 : 0}
+                  />
+                ))}
+              </ul>
+            </CardContainer>
+            <CardContainer>
+              <h2 className="text-normal text-slate-500">Gastos por día</h2>
+              <p className="text-xl font-semibold mb-6">
+                Día de mayor actividad: {dateToStringDateMonth(maxActivityReport?.date)}
+                <span className="tracking-wider text-lg text-slate-500 font-medium"> (${maxActivityReport.total_spent})</span>
+              </p>
+              <BarGraphicDailyTotal data={generateFullMonthData(totalByDates, lastMonthIndex, now.getFullYear())} />
+            </CardContainer>
+          </>
+        ) :(
+          <CardContainer>
+            <p className="text-lg text-center font-medium">No se registraron gastos en el periodo.</p>
+          </CardContainer>
+        )}
       </div>
     </main>
   )
