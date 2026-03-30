@@ -1,6 +1,10 @@
 "use client";
 import { useRef, useState } from "react";
 import { signup } from "@/actions/auth/signup";
+import { CardContainer } from "@/components/UI/CardContainer";
+import { InputField  } from "@/components/UI/InputField";
+import { BaseButton } from "@/components/UI/BaseButton";
+import { MainButton } from "@/components/UI/MainButton";
 
 function SignupForm() {
 	const [error, setError] = useState<string | null>(null);
@@ -10,53 +14,80 @@ function SignupForm() {
 	const submitHandler: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
 		if (!form.current) return;
-		setLoading(true);		
-		
+		setLoading(true);
+
 		setError(null);
 		const formData = new FormData(form.current);
 
-		const	password = formData.get("password");
-		const	confirmPassword = formData.get("confirm-password");
-		
-			if (password === confirmPassword) {
+		const password = formData.get("password");
+		const confirmPassword = formData.get("confirm-password");
 
-				const response = await signup(formData);
+		if (password === confirmPassword) {
 
-				if("error" in response) {
-					setError(response.error);
-				}
-				setLoading(false);
-				
-			} else {
-				setError("Las contraseñas no coinciden");
-				setLoading(false);
+			const response = await signup(formData);
+
+			if ("error" in response) {
+				setError(response.error);
 			}
+			setLoading(false);
+
+		} else {
+			setError("Las contraseñas no coinciden");
+			setLoading(false);
+		}
 	}
 
 	return (
-		<div className="w-sm bg-background text-foreground p-4 rounded shadow">
+		<CardContainer className="max-w-sm w-full">
 			<form onSubmit={submitHandler} ref={form} className="flex flex-col gap-4">
-				<label htmlFor="username" className="flex flex-col">
-					<span>Nombre de usuario</span>
-					<input type="text" required={true} id="username" name="username" className="bg-slate-100 text-slate-900 " />
-				</label>
-				<label htmlFor="email" className="flex flex-col">
-					<span>Correo electrónico</span>
-					<input type="email" required={true} id="email" name="email" className="bg-slate-100 text-slate-900 "/>
-				</label>
-				<label htmlFor="password" className="flex flex-col">
-					<span>Contraseña</span>
-					<input type="password" required={true} id="password" name="password" className="bg-slate-100 text-slate-900 "/>
-				</label>
-				<label htmlFor="confirm-password" className="flex flex-col">
-					<span>Confirmar contraseña</span>
-					<input type="password" required={true} id="confirm-password" name="confirm-password" className="bg-slate-100 text-slate-900 "/>
-				</label>
+				<InputField htmlFor="username" text="Nombre de usuario">
+					<input 
+						type="text" 
+						required={true} 
+						id="username" 
+						name="username" 
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+					/>
+				</InputField>
+
+				<InputField htmlFor="email" text="Correo electrónico">
+					<input 
+						type="email" 
+						required={true} 
+						id="email" 
+						name="email" 
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+					/>
+				</InputField>
+
+				<InputField htmlFor="password" text="Contraseña">
+					<input 
+						type="password" 
+						required={true} 
+						id="password" 
+						name="password" 
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+					/>
+				</InputField>
+
+				<InputField htmlFor="confirm-password" text="Confirmar contraseña" >
+					<input 
+						type="password" 
+						required={true} 
+						id="confirm-password" 
+						name="confirm-password" 
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+					/>
+				</InputField>
 
 				{error && <p>{error}</p>}
-				<button>{loading ? "cargando..." : "Enviar"}</button>
+				
+				{loading
+					? <BaseButton className="text-slate-600">Cargando...</BaseButton>
+					: <MainButton className="bg-blue-500 text-white">Enviar</MainButton>
+				}
 			</form>
-		</div>
+		</CardContainer>
 	)
 }
 
