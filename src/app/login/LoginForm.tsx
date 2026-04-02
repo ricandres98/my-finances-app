@@ -60,7 +60,7 @@ function LoginForm() {
 				}
 			</form>
 
-			<Link href="/signup" className="hover:underline">¿No tienes una cuenta? Regístrate aquí</Link>
+			<Link href="/signup" className="hover:underline text-center block">¿No tienes una cuenta? Regístrate aquí</Link>
 
 		</CardContainer>
 	)
