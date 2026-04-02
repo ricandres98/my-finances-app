@@ -5,7 +5,7 @@ import { DashboardClient } from "@/components/expense/DashboardClient";
 
 export default async function Dashboard() {
   const { id } = await authService.verifyToken() as { id: number, exp: number };
-  const expenseList = await expenseService.findAllRaw(id);
+  const expenseList = await expenseService.findAllRaw(id, { limit: 10 });
   const categoryList = await categoryService.findAll(id);
 
   const now = new Date();

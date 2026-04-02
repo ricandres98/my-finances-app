@@ -3,6 +3,13 @@ import type { CreateExpenseDTO, EditExpenseDTO, Expense, ExpenseWithCategory } f
 import { endOfMonth, startOfMonth, startOfWeek } from "@/utils/dateUtils";
 import { Model, Op } from "sequelize";
 
+type options = {
+	limit?: number,
+	where?: {
+		[key: string]: string | number;
+	}
+};
+
 const expenseService = {
 	async create(data: CreateExpenseDTO): Promise<[null, number] | [Error, null]> {
 		try {
@@ -26,13 +33,16 @@ const expenseService = {
 		});
 	},
 
-	async findAllRaw(userId: Expense["userId"]): Promise<ExpenseWithCategory[] | null> {
+	async findAllRaw(userId: Expense["userId"], options? : options): Promise<ExpenseWithCategory[] | null> {
+		const where = options?.where ? { userId, ...options.where } : { userId };
+
 		return await sequelize.models.Expense.findAll({ 
-			where: { userId }, 
+			where: where, 
 			include: ["category"], 
 			order: [["date", "DESC"], ["createdAt", "DESC"]],
 			raw: true,
 			nest: true,
+			limit: options?.limit,
 		}) as unknown as ExpenseWithCategory[] | null;
 	},
 	

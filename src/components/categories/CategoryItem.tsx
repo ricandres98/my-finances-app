@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ColorMark } from "../UI/ColorMark";
 
 type Props = {
@@ -19,7 +20,9 @@ const CategoryItem = ({ name, expenseCount, onDelete, onEdit, color }: Props) =>
       <div className="mb-4">
         <div className="mb-2 flex items-center">
           <ColorMark color={color} />
-          <span className="text-lg font-semibold text-slate-900">{formatCapital(name)}</span>
+          <Link href={`/categories/${encodeURI(name)}`}>
+            <span className="text-lg font-semibold text-slate-900">{formatCapital(name)}</span>
+          </Link>
         </div>
         <p className="text-base text-slate-500">{expenseCount} gasto(s) en esta categoría</p>
       </div>
