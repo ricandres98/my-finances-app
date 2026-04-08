@@ -53,7 +53,7 @@ function LoginForm() {
 					/>
 				</InputField>
 
-				{error && <p>{error}</p>}
+				{error && <p className="text-red-600 text-center text-sm">{error}</p>}
 				{loading
 					? <BaseButton className="text-slate-600">Cargando...</BaseButton>
 					: <MainButton className="bg-blue-500 text-white">Enviar</MainButton>

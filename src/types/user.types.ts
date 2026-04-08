@@ -5,6 +5,10 @@ interface User {
     password: string,
 }
 
+interface PendingUser extends Omit<User, "password">{
+    passwordHash: string;
+};
+
 type CreateUserDto = Omit<User, "id">;
 
-export type { User, CreateUserDto};
+export type { User, CreateUserDto, PendingUser};

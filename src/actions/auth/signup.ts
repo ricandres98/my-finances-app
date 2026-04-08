@@ -2,7 +2,9 @@
 
 import { categoryService } from "@/services/category.service";
 import { userService } from "@/services/user.service";
+import { verificationService } from "@/services/verification.service";
 import { redirect } from "next/navigation";
+import { serverLogin } from "./serverLogin";
 
 const defaultCategories = [
 	"servicios",
@@ -11,32 +13,40 @@ const defaultCategories = [
 	"ahorro",
 ];
 
-export async function signup(formData: FormData) {
+export async function signup(email: string) {
 
-	const username = formData.get("username");
-	const email = formData.get("email");
-	const password = formData.get("password");
-
-	if (!username || !email || !password) {
+	if (!email) {
 		return { error: "Faltan campos" };
 	}
 
-	const response = await userService.create({
-		username: username.toString(),
-		email: email.toString(),
-		password: password.toString()
-	});
+	const pendingUser = await verificationService.getPendingUser(email);
 
-	if (response[0]) {
-		return { error: response[0].message };
-	} else {
-		defaultCategories.forEach(async (category) => {
-			await categoryService.create({ 
-				name: category,
-				userId: response[1],
-			 })
-		})
+	if (!pendingUser) {
+		return{ error: "Usuario inválido"};
 	}
 
-	redirect("/login");
+	const response = await userService.create({
+		username: pendingUser?.dataValues.username,
+		email: pendingUser.dataValues.email,
+		password: pendingUser.dataValues.passwordHash,
+	});
+
+	if (response.error) {
+		return { error: response.message };
+	} else {
+
+		pendingUser.destroy();
+
+		for (const category of defaultCategories) {
+			await categoryService.create({ 
+				name: category,
+				userId: response.message,
+			 });
+		}
+
+		console.log("HORA DE REDIRIGIR")
+		await serverLogin(email, pendingUser.dataValues.passwordHash);
+
+	}
+
 }

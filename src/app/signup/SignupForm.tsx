@@ -5,6 +5,7 @@ import { CardContainer } from "@/components/UI/CardContainer";
 import { InputField  } from "@/components/UI/InputField";
 import { BaseButton } from "@/components/UI/BaseButton";
 import { MainButton } from "@/components/UI/MainButton";
+import { sendVerificationCode } from "@/actions/auth/sendVerificationCode";
 
 function SignupForm() {
 	const [error, setError] = useState<string | null>(null);
@@ -24,9 +25,9 @@ function SignupForm() {
 
 		if (password === confirmPassword) {
 
-			const response = await signup(formData);
+			const response = await sendVerificationCode(formData);
 
-			if ("error" in response) {
+			if (response?.error) {
 				setError(response.error);
 			}
 			setLoading(false);
@@ -80,7 +81,7 @@ function SignupForm() {
 					/>
 				</InputField>
 
-				{error && <p>{error}</p>}
+				{error && <p className="text-red-600 text-center text-sm">{error}</p>}
 				
 				{loading
 					? <BaseButton className="text-slate-600">Cargando...</BaseButton>

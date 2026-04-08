@@ -8,12 +8,12 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 
-export async function login(formData: FormData) {
+export async function serverLogin(email: string, password: string) {
 	let isLoginSuccess = false;
 	try {
 		// 1- Validar campos
-		const email = formData.get("email")?.toString();
-		const password = formData.get("password")?.toString();
+		// const email = formData.get("email")?.toString();
+		// const password = formData.get("password")?.toString();
 
 		if (!email || !password) {
 			return { error: "Faltan campos" };
@@ -26,7 +26,7 @@ export async function login(formData: FormData) {
 			return { error: "Credenciales inválidas" };
 		}
 
-		const isValidPassword = await bcrypt.compare(password, user.dataValues.password)
+		const isValidPassword = password === user.dataValues.password;
 
 		if (isValidPassword) {
 			console.log("Logueado con éxito");
