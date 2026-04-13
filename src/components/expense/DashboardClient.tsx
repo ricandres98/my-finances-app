@@ -47,9 +47,11 @@ const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExp
                 : (<p className="mx-auto text-2xl font-semibold text-slate-600 text-center mt-8">¡Comienza a registrar tus gastos!</p>)
               }
             </ExpenseList>
-            <div className="w-full flex justify-center">
-              <Link href="/expenses" className="text-slate-500 hover:underline">Ver más</Link>
-            </div>
+            {(expenseList && expenseList.length > 0) && (
+              <div className="w-full flex justify-center">
+                <Link href="/expenses" className="text-slate-500 hover:underline">Ver más</Link>
+              </div>
+            )}
           </div>
         </section>
       </main>
