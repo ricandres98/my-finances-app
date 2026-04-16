@@ -12,22 +12,24 @@ import { CardContainer } from "../UI/CardContainer";
 import { StatCard } from "../UI/StatCard";
 import { Header } from "../layout/Header";
 import Link from "next/link";
+import { GreetingCard } from "../UI/GreetingCard";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
   expenseList: ExpenseWithCategory[] | null,
   monthlyExpenses: number | undefined,
   weeklyExpenses: number | undefined,
+  username: string,
 }
 
-const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExpenses }: Props) => {
+const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExpenses, username }: Props) => {
   const [expenseToEdit, setExpenseToEdit] = useState<ExpenseWithCategory | null>(null);
   return (
     <>
       <main className="w-full px-4 py-8 overflow-y-auto focus-visible:outline-none [scrollbar-gutter:stable]">
         <section className="grid grid-cols-2 sm:grid-cols-3 gap-4 px-4 pb-4 ">
+          <GreetingCard username={username}/>
           <StatCard title="Este mes" value={monthlyExpenses}/>
-          <StatCard title="Esta semana" value={weeklyExpenses}/>
           <StatCard title="Esta semana" value={weeklyExpenses}/>
         </section>
         <section className="md:flex md:gap-6 px-4 py-8">

@@ -41,6 +41,10 @@ const userService = {
 	async find(email: User["email"]): Promise<Model<User> | null> {
 		return await sequelize.models.User.findOne({ where: { email: email } })
 	},
+	
+	async findByIdRaw(id: User["id"]): Promise<User> {
+		return await sequelize.models.User.findOne({ where: { id }, raw: true }) as unknown as User;
+	},
 
 	delete() { },
 

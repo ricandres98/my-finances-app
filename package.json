@@ -12,6 +12,7 @@
     "migrations:undo": "npx sequelize-cli db:migrate:undo"
   },
   "dependencies": {
+    "@date-fns/tz": "^1.4.1",
     "@react-email/tailwind": "^2.0.7",
     "bcrypt": "^6.0.0",
     "date-fns": "^4.1.0",

@@ -5,7 +5,7 @@ const poppins = Poppins({ subsets: ["latin"], weight: "600" });
 
 const Header = () => {
   return (
-    <header className="flex justify-between p-6 border-b border-slate-200 bg-blue-600 text-slate-50 shadow-sm">
+    <header className="flex justify-between p-6 bg-blue-600 text-slate-50 shadow-sm">
       <div>
         <h1 className={poppins.className + " text-xl font-bold"}>Expense Tracker</h1>
         <h2 className="hidden sm:block">Registra tus gastos y controla tu presupuesto</h2>

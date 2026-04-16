@@ -114,6 +114,34 @@ const expenseService = {
 		}
 	},
 
+	async getTotalOfPeriod(
+		userId: Expense["userId"], 
+		{
+			startDate,
+			endDate,
+		}: 
+		{
+			startDate: Date,
+			endDate: Date,
+		}
+	) {
+		try {
+			const amount = await sequelize.models.Expense.sum("amount_usd", {
+				where: {
+					userId,
+					date: {
+						[Op.between]: [startDate, endDate],
+					}
+				}
+			});
+	
+			return amount;
+
+		} catch (error) {
+			console.error(error)
+		}
+	},
+
 	async getTotalThisWeek(userId: Expense["userId"]) {
 		try {
 			const amount = await sequelize.models.Expense.sum("amount_usd", {
