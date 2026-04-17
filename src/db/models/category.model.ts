@@ -14,6 +14,10 @@ const CategorySchema = {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
+	color: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
 	userId: {
 		field: 'user_id',
 		allowNull: false,
@@ -38,7 +42,9 @@ class Category extends Model {
 		this.belongsTo(models.User, { as: 'user'});
 		this.hasMany(models.Expense, {
 			as: 'expenses',
-			foreignKey: 'categoryId'
+			foreignKey: 'categoryId',
+			onDelete: "CASCADE",
+			onUpdate: "CASCADE"
 		});
 	}
 

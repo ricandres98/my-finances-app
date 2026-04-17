@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose"
 import { config as env } from "@/config";
-import { logout } from "./app/login/logout";
+import { logout } from "./actions/auth/logout";
 
 export default async function proxy(request: NextRequest) {
 	const token = request.cookies.get("token");
+
+	const { pathname } = request.nextUrl;
 
 	console.log("SE ESTA EJECUTANDO EL PROXY EN: ", request.url);
 	
@@ -13,7 +15,7 @@ export default async function proxy(request: NextRequest) {
 		if (!request.url.includes("/login"))
 		return NextResponse.redirect(new URL('/login', request.url));
 	} else {
-		if (request.url.includes("/login")) {
+		if (request.url.includes("/login") || pathname === "/") {
 			return NextResponse.redirect(new URL('/dashboard', request.url));
 		}
 		const secret = new TextEncoder().encode(env.jwtSecret)
@@ -42,6 +44,6 @@ export const config = {
      * 4. /favicon.ico (icono del sitio)
      * 5. /login (la página a la que queremos llegar)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|signup).*)',
   ],
 };

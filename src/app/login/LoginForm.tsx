@@ -1,6 +1,11 @@
 "use client";
 import { useRef, useState } from "react";
-import { login } from "./login";
+import { login } from "../../actions/auth/login";
+import Link from "next/link";
+import { CardContainer } from "@/components/UI/CardContainer";
+import { InputField } from "@/components/UI/InputField";
+import { BaseButton } from "@/components/UI/BaseButton";
+import { MainButton } from "@/components/UI/MainButton";
 
 function LoginForm() {
 	const [error, setError] = useState<string | null>(null);
@@ -10,38 +15,54 @@ function LoginForm() {
 	const submitHandler: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
 		e.preventDefault();
 		if (!form.current) return;
-		
+
 		setLoading(true);
 		setError(null);
 		const formData = new FormData(form.current);
-		
+
 		const response = await login(formData);
-		
+
 		setLoading(false);
 
-		if (response.error) {
+		if (response && "error" in response && response.error) {
 			setError(response.error);
-		} else {
-			console.log(response.message);
 		}
-}
+	}
 
 	return (
-		<div className="w-sm bg-background text-foreground p-4 rounded shadow">
-			<form onSubmit={submitHandler} ref={form} className="flex flex-col gap-4">
-				<label htmlFor="email" className="flex flex-col">
-					<span>Correo electrónico</span>
-					<input type="email" required={true} id="email" name="email" className="bg-slate-100 text-slate-900 "/>
-				</label>
-				<label htmlFor="password" className="flex flex-col">
-					<span>Contraseña</span>
-					<input type="password" required={true} id="password" name="password" className="bg-slate-100 text-slate-900 "/>
-				</label>
+		<CardContainer>
 
-				{error && <p>{error}</p>}
-				<button>{loading ? "cargando..." : "Enviar"}</button>
+			<form onSubmit={submitHandler} ref={form} className="flex flex-col gap-4 mb-6">
+				<InputField htmlFor="email" text="Correo electrónico">
+					<input
+						type="email"
+						id="email"
+						name="email"
+						required={true}
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+					/>
+				</InputField>
+
+				<InputField htmlFor="password" text="Contraseña">
+					<input
+						type="password"
+						required={true}
+						id="password"
+						name="password"
+						className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
+					/>
+				</InputField>
+
+				{error && <p className="text-red-600 text-center text-sm">{error}</p>}
+				{loading
+					? <BaseButton className="text-slate-600">Cargando...</BaseButton>
+					: <MainButton className="bg-blue-500 text-white">Enviar</MainButton>
+				}
 			</form>
-		</div>
+
+			<Link href="/signup" className="hover:underline text-center block">¿No tienes una cuenta? Regístrate aquí</Link>
+
+		</CardContainer>
 	)
 }
 

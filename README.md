@@ -71,9 +71,9 @@ category_id: integer (FK)
 
 ## Estado actual del proyecto
 
-✅ Modelado relacional completo
-✅ Autenticación implementada
-🚧 Dashboard en desarrollo
+- ✅ Modelado relacional completo
+- ✅ Autenticación implementada
+- 🚧 Dashboard en desarrollo
 
 ---
 

@@ -1,5 +1,9 @@
 import "./globals.css";
-import { logout } from "./login/logout";
+import { Inter, DM_Sans } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"]});
+const dmSans = DM_Sans({ subsets: ["latin"] });
+
 
 export default function RootLayout({
   children,
@@ -8,8 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={``}>
-      <button onClick={logout}>Logout</button>
+      <body className={`bg-slate-50 text-slate-900 ${inter.className}`}>
         {children}
       </body>
     </html>

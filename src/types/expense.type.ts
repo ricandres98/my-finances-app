@@ -1,0 +1,24 @@
+import { Model } from "sequelize";
+import { Category } from "./category.type";
+import { User } from "./user.types";
+
+interface Expense {
+	id: number,
+	date: Date,
+	amountUsd: number,
+	userId: User["id"],
+	categoryId: number,
+	description?: string,
+	rate?: number,
+	amountBs?: number,
+}
+
+interface ExpenseWithCategory extends Expense {
+	category: Category,
+}
+
+type CreateExpenseDTO = Omit<Expense, "id">;
+
+type EditExpenseDTO = Partial<Omit<CreateExpenseDTO, "userId">>
+
+export type { Expense, CreateExpenseDTO, ExpenseWithCategory, EditExpenseDTO };

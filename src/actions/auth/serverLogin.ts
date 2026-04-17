@@ -2,35 +2,34 @@
 
 import { SignJWT } from "jose";
 import bcrypt from "bcrypt";
-import { UserService } from "@/services/user.service";
+import { userService } from "@/services/user.service";
 import { config } from "@/config";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-const service = new UserService();
 
-export async function login(formData: FormData) {
+export async function serverLogin(email: string, password: string) {
 	let isLoginSuccess = false;
 	try {
 		// 1- Validar campos
-		const email = formData.get("email")?.toString();
-		const password = formData.get("password")?.toString();
+		// const email = formData.get("email")?.toString();
+		// const password = formData.get("password")?.toString();
 
 		if (!email || !password) {
 			return { error: "Faltan campos" };
 		}
 
 		// 2- Verificar credenciales
-		const user = await service.find(email.toString());
+		const user = await userService.find(email.toString());
 
 		if (!user) {
 			return { error: "Credenciales inválidas" };
 		}
 
-		const isValidPassword = await bcrypt.compare(password, user.dataValues.password)
+		const isValidPassword = password === user.dataValues.password;
 
 		if (isValidPassword) {
-			console.log("Te logueaste chico!!");
+			console.log("Logueado con éxito");
 
 			// 3- Generar JWT
 			const secret = new TextEncoder().encode(config.jwtSecret);

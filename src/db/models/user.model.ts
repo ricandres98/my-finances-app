@@ -36,10 +36,12 @@ class User extends Model {
     this.hasMany(models.Category, {
       as: 'categories',
       foreignKey: 'userId',
+      onDelete: "CASCADE"
     });
     this.hasMany(models.Expense, {
       as: 'expenses',
       foreignKey: 'userId',
+      onDelete: "CASCADE"
     });
   }
 
