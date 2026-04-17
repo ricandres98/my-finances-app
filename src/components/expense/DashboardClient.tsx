@@ -10,7 +10,6 @@ import { Modal } from "../UI/Modal";
 import { EditExpenseForm } from "./EditExpenseForm";
 import { CardContainer } from "../UI/CardContainer";
 import { StatCard } from "../UI/StatCard";
-import { Header } from "../layout/Header";
 import Link from "next/link";
 import { GreetingCard } from "../UI/GreetingCard";
 

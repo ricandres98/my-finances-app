@@ -1,7 +1,6 @@
 "use server";
 
 import { SignJWT } from "jose";
-import bcrypt from "bcrypt";
 import { userService } from "@/services/user.service";
 import { config } from "@/config";
 import { cookies } from "next/headers";

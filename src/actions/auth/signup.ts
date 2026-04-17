@@ -3,7 +3,6 @@
 import { categoryService } from "@/services/category.service";
 import { userService } from "@/services/user.service";
 import { verificationService } from "@/services/verification.service";
-import { redirect } from "next/navigation";
 import { serverLogin } from "./serverLogin";
 
 const defaultCategories = [

@@ -3,9 +3,7 @@
 import { useRef, useState } from "react";
 import { BaseButton } from "../UI/BaseButton";
 import { CardContainer } from "../UI/CardContainer";
-import { InputField } from "../UI/InputField";
 import { MainButton } from "../UI/MainButton";
-import { sendVerificationCode } from "@/actions/auth/sendVerificationCode";
 import { InputNumber } from "../UI/InputNumber";
 import { validateVerificationCode } from "@/actions/auth/validateVerificationCode";
 

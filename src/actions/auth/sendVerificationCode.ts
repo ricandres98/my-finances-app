@@ -1,7 +1,6 @@
 "use server";
 
 import { verificationService } from "@/services/verification.service";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function sendVerificationCode(formData: FormData) {

@@ -1,6 +1,5 @@
 "use client";
 import { ExpenseWithCategory } from "@/types/expense.type";
-import { MainButton } from "../UI/MainButton";
 import { ExpenseList } from "./ExpenseList";
 import { ExpenseItem } from "./ExpenseItem";
 import { useState } from "react";
@@ -8,7 +7,7 @@ import { Modal } from "../UI/Modal";
 import { Category } from "@/types/category.type";
 import { CreateExpenseForm } from "./CreateExpenseForm";
 import { EditExpenseForm } from "./EditExpenseForm";
-import { FilterExpensesPanel } from "./FilterExpensesPanel";
+
 
 type Props = {
   expenseList: ExpenseWithCategory[] | null,
@@ -18,39 +17,6 @@ type Props = {
 const ExpensesByCategoryClient = ({ expenseList, categoryList }: Props) => {
   const [createNew, setCreateNew] = useState<boolean>(false);
   const [expenseToEdit, setExpenseToEdit] = useState<ExpenseWithCategory | null>(null);
-  const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
-  const [currencyFilter, setCurrencyFilter] = useState<"bs" | "usd" | null>(null);
-  const [dateFilter, setDateFilter] = useState<string | null>(null);
-
-  const filterByCategory = (expenses: ExpenseWithCategory[]) => {
-    if (!categoryFilter) return expenses;
-    return expenses.filter((expense) => expense.category.name === categoryFilter);
-  }
-
-  const filterByCurrency = (expenses: ExpenseWithCategory[]) => {
-    if (!currencyFilter) return expenses;
-    return expenses.filter((expense) => {
-      if (currencyFilter === "bs") {
-        return expense.amountBs ? true : false;
-      } else if (currencyFilter === "usd") {
-        return expense.amountBs ? false : true;
-      }
-    });
-  }
-
-  const filterByDate = (expenses: ExpenseWithCategory[]) => {
-    if (!dateFilter) return expenses;
-    return expenses.filter((expense) => {
-      const date = new Date(expense.date);
-      const monthYearString = `${date.getUTCMonth() + 1}-${date.getUTCFullYear()}`;
-      console.log("TEST STRING: ", monthYearString);
-      console.log("DATE FILTER: ", dateFilter);
-
-      return monthYearString === dateFilter;
-    })
-  }
-
-  const filteredExpenses = filterByDate(filterByCurrency(filterByCategory(expenseList || [])));
 
   return (
     <>
@@ -59,9 +25,9 @@ const ExpensesByCategoryClient = ({ expenseList, categoryList }: Props) => {
         <div className="p-6 gap-6">
           {/* Card de gasto */}
           <ExpenseList>
-            {(filteredExpenses && filteredExpenses.length > 0)
+            {(expenseList && expenseList.length > 0)
               // Organiza desde el más reciente al más antiguo
-              ? filteredExpenses.sort((expenseA, expenseB) => expenseB.date.getTime() - expenseA.date.getTime())
+              ? expenseList.sort((expenseA, expenseB) => expenseB.date.getTime() - expenseA.date.getTime())
                 .map((expense) => (
                   <ExpenseItem expense={expense} setEdit={setExpenseToEdit} key={`exp-${expense.id}`} />
                 ))

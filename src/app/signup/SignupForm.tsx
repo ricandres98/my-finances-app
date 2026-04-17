@@ -1,6 +1,5 @@
 "use client";
 import { useRef, useState } from "react";
-import { signup } from "@/actions/auth/signup";
 import { CardContainer } from "@/components/UI/CardContainer";
 import { InputField  } from "@/components/UI/InputField";
 import { BaseButton } from "@/components/UI/BaseButton";

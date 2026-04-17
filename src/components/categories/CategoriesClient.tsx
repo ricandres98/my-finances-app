@@ -9,7 +9,6 @@ import { DeleteCategoryConfirmation } from "./DeleteCategoryConfirmation";
 import { deleteCategory } from "@/actions/categories/deleteCategory";
 import { CreateCategoryForm } from "./CreateCategoryForm";
 import { EditCategoryForm } from "./EditCategoryForm";
-import { randomHex } from "@/utils/randomHex";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
