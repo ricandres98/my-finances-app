@@ -11,7 +11,19 @@ const sequelize = new Sequelize({
   port: Number(config.dbPort),
   dialect: "postgres",
   dialectModule: pg,
-  logging: console.log,
+  logging: config.nodeEnv === "development" ? console.log : false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    }
+  },
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  }
 });
 
 setupModels(sequelize);
