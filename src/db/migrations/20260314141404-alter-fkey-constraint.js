@@ -2,12 +2,11 @@
 
 const EXPENSES_TABLE = "expenses";
 const CATEGORIES_TABLE = "categories";
-const USERS_TABLE = "users";
 
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up (queryInterface) {
     await queryInterface.removeConstraint(EXPENSES_TABLE, "expenses_category_id_fkey");
     await queryInterface.addConstraint(EXPENSES_TABLE, {
       name: "expenses_category_id_fkey",
@@ -22,7 +21,7 @@ module.exports = {
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down (queryInterface) {
     await queryInterface.removeConstraint(EXPENSES_TABLE, "expenses_category_id_fkey");
     await queryInterface.addConstraint('expenses', {
       fields: ['category_id'],

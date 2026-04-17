@@ -1,10 +1,6 @@
 import { cookies } from "next/headers";
 import { SignupForm } from "./SignupForm";
 import { redirect } from "next/navigation";
-import { MainButton } from "@/components/UI/MainButton";
-import { validateVerificationCode } from "@/actions/auth/validateVerificationCode";
-import { EmailForm } from "@/components/signup/EmailForm";
-import { VerifyEmailForms } from "@/components/signup/VerifyEmailForms";
 
 export default async function SignupPage() {
 	const cookieStore = await cookies();

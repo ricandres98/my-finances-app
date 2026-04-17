@@ -13,17 +13,19 @@ const sequelize = new Sequelize({
   dialectModule: pg,
   logging: config.nodeEnv === "development" ? console.log : false,
   dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    }
+    ...(config.nodeEnv === "production" && {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      }
+    })
   },
-  pool: {
+  pool: config.nodeEnv === "production" ? {
     max: 5,
     min: 0,
     acquire: 30000,
     idle: 10000,
-  }
+  } : undefined,
 });
 
 setupModels(sequelize);

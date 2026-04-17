@@ -1,6 +1,5 @@
 "use client";
 import { useRef, useState } from "react";
-import { signup } from "@/actions/auth/signup";
 import { InputField } from "@/components/UI/InputField";
 import { CardContainer } from "../UI/CardContainer";
 import { BaseButton } from "../UI/BaseButton";
@@ -26,7 +25,7 @@ function EmailForm({ next }: Props) {
 
     const response = await sendVerificationCode(formData);
 
-    if (!response.success) {
+    if (response && !response.success) {
       setError(response.error);
     } else {
       next(formData.get("email") as string);

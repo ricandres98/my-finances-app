@@ -1,8 +1,7 @@
 import "./globals.css";
-import { Inter, DM_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"]});
-const dmSans = DM_Sans({ subsets: ["latin"] });
 
 
 export default function RootLayout({

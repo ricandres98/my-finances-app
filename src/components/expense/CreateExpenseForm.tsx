@@ -8,7 +8,6 @@ import { GroupRadioInputs } from "../UI/GroupRadioInputs";
 import { InputField } from "../UI/InputField";
 import { MainButton } from "../UI/MainButton";
 import { Category } from "@/types/category.type";
-import { CardContainer } from "../UI/CardContainer";
 
 type Props = {
 	categories: Category[] | null,
