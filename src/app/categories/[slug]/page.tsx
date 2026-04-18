@@ -7,12 +7,14 @@ export default async function Page(props: PageProps<"/categories/[slug]">) {
 
   const { slug } = await props.params;
   const { id } = await authService.verifyToken() as { id: number, exp: number };
-  
-  const expenseList = await expenseService.findAllRaw(id, { where: { "$category.name$": decodeURI(slug) }});
-  const categoryList = await categoryService.findAll(id);
 
-  console.log("EXPENSE LIST: ", expenseList);
-  return (
-    <ExpensesByCategoryClient expenseList={expenseList} categoryList={categoryList} />
-  )
+  if (id) {
+    const expenseList = await expenseService.findAllRaw(id, { where: { "$category.name$": decodeURI(slug) }});
+    const categoryList = await categoryService.findAll(id);
+  
+    console.log("EXPENSE LIST: ", expenseList);
+    return (
+      <ExpensesByCategoryClient expenseList={expenseList} categoryList={categoryList} />
+    )
+  }
 }
