@@ -24,8 +24,18 @@ const InputNumber = ({ name, id, required, simbol, defaultValue, ...rest }: Prop
 			className="flex w-full px-3 py-2 border border-slate-300 rounded-lg 
 			focus-within:ring-2 focus-within:ring-blue-500">
 			<span className="text-slate-700">{simbol}</span>
-			<input {...rest}  type="text" value={value} onChange={handleChange} onSubmit={() => setValue("")} name={name} id={id} required={required} 
+			<input 
+				{...rest}  
+				type="text" 
+				value={value} 
+				onChange={handleChange} 
+				onSubmit={() => setValue("")} 
+				name={name} 
+				id={id} 
+				required={required} 
 				className="focus-visible:outline-none px-2 w-full"
+				inputMode="decimal"
+				pattern="[0-9]*"
 			/>
 		</div>
 	)

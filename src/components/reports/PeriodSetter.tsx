@@ -20,15 +20,28 @@ const PeriodSetter = ({ startDate, endDate }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const today = new Date().toISOString().split("T")[0];
+
   const handleSubmit: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     setError(null);
 
+    const todayDate = new Date(today);
+
     const dateA = new Date(start);
     const dateB = new Date(end);
 
+    const isFutureDate =
+      dateA.getTime() > todayDate.getTime() ||
+      dateB.getTime() > todayDate.getTime();
+
+    if (isFutureDate) {
+      alert("No puedes seleccionar una fecha futura");
+      return;
+    }
+
     if (dateA.getTime() > dateB.getTime()) {
-      setError("La fecha inicial no puede ser mayor que la final")
+      setError("La fecha inicial no puede ser mayor que la final");
     } else {
       const params = new URLSearchParams(searchParams.toString());
 
@@ -56,8 +69,8 @@ const PeriodSetter = ({ startDate, endDate }: Props) => {
           type="date"
           name="startDate"
           id="startDate"
-          // defaultValue={startDate}
           value={start}
+          max={today}
           onChange={(e) => setStart(e.target.value)}
           className="w-full md:max-w-50 px-3 py-2 mb-6 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
           />
@@ -67,8 +80,8 @@ const PeriodSetter = ({ startDate, endDate }: Props) => {
           type="date"
           name="endDate"
           id="endDate"
-          // defaultValue={endDate}
           value={end}
+          max={today}
           onChange={(e) => setEnd(e.target.value)}
           className="w-full md:max-w-50 px-3 py-2 mb-6 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus-visible:outline-none"
         />
