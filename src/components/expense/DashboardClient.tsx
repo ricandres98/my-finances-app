@@ -12,6 +12,8 @@ import { CardContainer } from "../UI/CardContainer";
 import { StatCard } from "../UI/StatCard";
 import Link from "next/link";
 import { GreetingCard } from "../UI/GreetingCard";
+import { ExpenseListWithDate } from "./ExpenseListWithDate";
+import { sortExpensesByDate } from "@/utils/sortExpensesByDate";
 
 type Props = {
   categoryList: CategoryWithExpenseCount[] | null,
@@ -23,6 +25,9 @@ type Props = {
 
 const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExpenses, username }: Props) => {
   const [expenseToEdit, setExpenseToEdit] = useState<ExpenseWithCategory | null>(null);
+  
+  const listOfLists = sortExpensesByDate(expenseList || []);
+  
   return (
     <>
       <main className="w-full px-4 py-8 overflow-y-auto focus-visible:outline-none [scrollbar-gutter:stable]">
@@ -39,14 +44,21 @@ const DashboardClient = ({ categoryList, expenseList, monthlyExpenses, weeklyExp
           </div>
           <div className="w-full">
             <ExpenseList>
-              {(expenseList && expenseList.length > 0)
+              {listOfLists.map((item) => (
+                <ExpenseListWithDate key={item.date} dateString={item.date}>
+                  {item.list.map((expense) => (
+                    <ExpenseItem expense={expense} setEdit={setExpenseToEdit} key={`exp-${expense.id}`} />
+                  ))}
+                </ExpenseListWithDate>
+              ))}
+              {/* {(expenseList && expenseList.length > 0)
                 // Organiza desde el más reciente al más antiguo
                 ? expenseList.sort((expenseA, expenseB) => expenseB.date.getTime() - expenseA.date.getTime())
                   .map((expense) => (
                     <ExpenseItem expense={expense} setEdit={setExpenseToEdit} key={`exp-${expense.id}`} />
                   ))
                 : (<p className="mx-auto text-2xl font-semibold text-slate-600 text-center mt-8">¡Comienza a registrar tus gastos!</p>)
-              }
+              } */}
             </ExpenseList>
             {(expenseList && expenseList.length > 0) && (
               <div className="w-full flex justify-center">
