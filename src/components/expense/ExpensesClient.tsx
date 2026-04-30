@@ -9,6 +9,8 @@ import { Category } from "@/types/category.type";
 import { CreateExpenseForm } from "./CreateExpenseForm";
 import { EditExpenseForm } from "./EditExpenseForm";
 import { FilterExpensesPanel } from "./FilterExpensesPanel";
+import { sortExpensesByDate } from "@/utils/sortExpensesByDate";
+import { ExpenseListWithDate } from "./ExpenseListWithDate";
 
 type Props = {
   expenseList: ExpenseWithCategory[] | null,
@@ -52,6 +54,8 @@ const ExpensesClient = ({ expenseList, categoryList }: Props) => {
 
   const filteredExpenses = filterByDate(filterByCurrency(filterByCategory(expenseList || [])));
 
+  const listOfLists = sortExpensesByDate(filteredExpenses)
+
   return (
     <>
       <main className="overflow-y-auto [scrollbar-gutter:stable] pb-8">
@@ -71,21 +75,13 @@ const ExpensesClient = ({ expenseList, categoryList }: Props) => {
         <div className="p-6 gap-6">
           {/* Card de gasto */}
           <ExpenseList>
-            {(filteredExpenses && filteredExpenses.length > 0)
-              // Organiza desde el más reciente al más antiguo
-              ? filteredExpenses.sort((expenseA, expenseB) => expenseB.date.getTime() - expenseA.date.getTime())
-                .map((expense) => (
-                  <ExpenseItem expense={expense} setEdit={setExpenseToEdit} key={`exp-${expense.id}`} />
-                ))
-              : 
-              expenseList?.length === 0
-                ? (<p className="mx-auto text-2xl font-semibold text-slate-600 text-center mt-8">
-                  ¡Comienza a registrar tus gastos!
-                </p>)
-                : (<p className="mx-auto text-2xl font-semibold text-slate-600 text-center mt-8">
-                  No se encontraron gastos que coincidan con los filtros seleccionados.
-                </p>)
-            }
+            {listOfLists.map((item) => (
+              <ExpenseListWithDate key={item.date} dateString={item.date}>
+                  {item.list.map((expense) => (
+                    <ExpenseItem expense={expense} setEdit={setExpenseToEdit} key={`exp-${expense.id}`} />
+                  ))}
+              </ExpenseListWithDate>
+            ))}
           </ExpenseList>
         </div>
       </main>
